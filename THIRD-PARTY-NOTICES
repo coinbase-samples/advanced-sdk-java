@@ -1,0 +1,7 @@
+---------------------------------------------------------------------
+License notice for https://github.com/FasterXML/jackson-core/wiki
+---------------------------------------------------------------------
+
+Project is licensed under Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt) like all official Jackson components.
+
+FasterXML also explicitly allows users to alternatively license component under Lesser GPL (LGPL) 2.1 up to and including version 2.2. If so, they may want to repackage artifacts to reflect their choice of license to use.
