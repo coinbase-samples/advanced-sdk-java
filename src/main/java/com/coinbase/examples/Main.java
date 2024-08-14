@@ -16,9 +16,22 @@
 
 package com.coinbase.examples;
 
+import com.coinbase.advanced.client.CoinbaseAdvancedApi;
 import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.model.account.GetAccountRequest;
+import com.coinbase.advanced.model.account.GetAccountResponse;
+import com.coinbase.advanced.model.fees.GetTransactionsSummaryRequest;
+import com.coinbase.advanced.model.fees.GetTransactionsSummaryResponse;
+import com.coinbase.advanced.model.market.GetServerTimeResponse;
+import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodRequest;
+import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodResponse;
+import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsRequest;
+import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsResponse;
+import com.coinbase.advanced.model.portfolio.GetPortfolioBreakdownRequest;
+import com.coinbase.advanced.model.portfolio.GetPortfolioBreakdownResponse;
 import com.coinbase.advanced.model.portfolio.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolio.ListPortfoliosResponse;
+import com.coinbase.advanced.model.product.*;
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.account.ListAccountsRequest;
@@ -43,13 +56,24 @@ public class Main {
 
             // Initialize credentials and HTTP client
             CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privateKeyPEM);
-            CoinbaseAdvancedHttpClient client = new CoinbaseAdvancedHttpClient(credentials, Constants.BASE_URL);
+            CoinbaseAdvancedApi client = new CoinbaseAdvancedHttpClient(credentials, Constants.BASE_URL);
 
-            // Create and send the ListAccountsRequest
-            ListPortfoliosRequest listReq = new ListPortfoliosRequest();
-            ListPortfoliosResponse listResponse = client.listPortfolios(listReq);
 
-            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(listResponse);
+//            ListPortfoliosRequest listReq = new ListPortfoliosRequest();
+//            ListPortfoliosResponse listResponse = client.listPortfolios(listReq);
+
+//            ListPaymentMethodsRequest request = new ListPaymentMethodsRequest();
+//            ListPaymentMethodsResponse listResponse = client.listPaymentMethods(request);
+
+//            GetPaymentMethodRequest request = new GetPaymentMethodRequest.Builder()
+//                    .paymentMethodId("ef38dddf-af89-4265-87be-b4ba58b318c2")
+//                    .build();
+//            GetPaymentMethodResponse getResponse = client.getPaymentMethod(request);
+
+            GetServerTimeResponse getResponse = client.getServerTime();
+
+
+            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(getResponse);
             System.out.println("List Accounts Response:");
             System.out.println(prettyJson);
 
