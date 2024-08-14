@@ -26,8 +26,7 @@ import com.coinbase.advanced.model.fees.GetTransactionsSummaryRequest;
 import com.coinbase.advanced.model.fees.GetTransactionsSummaryResponse;
 import com.coinbase.advanced.model.futures.*;
 import com.coinbase.advanced.model.market.GetServerTimeResponse;
-import com.coinbase.advanced.model.orders.ListOrdersRequest;
-import com.coinbase.advanced.model.orders.ListOrdersResponse;
+import com.coinbase.advanced.model.orders.*;
 import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodRequest;
 import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodResponse;
 import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsRequest;
@@ -97,6 +96,12 @@ public interface CoinbaseAdvancedApi {
     CancelPendingFuturesSweepResponse cancelPendingFuturesSweep(CancelPendingFuturesSweepRequest request) throws CoinbaseAdvancedException;
 
     ListOrdersResponse listOrders(ListOrdersRequest request) throws CoinbaseAdvancedException;
+
+    GetOrderResponse getOrder(GetOrderRequest request) throws CoinbaseAdvancedException;
+
+    ListFillsResponse listFills(ListFillsRequest request) throws CoinbaseAdvancedException;
+
+    CreateOrderPreviewResponse createOrderPreview(CreateOrderPreviewRequest request) throws CoinbaseAdvancedException;
 
     // Orders
 
