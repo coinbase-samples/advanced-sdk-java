@@ -1,3 +1,19 @@
+/*
+ * Copyright 2024-present Coinbase Global, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.coinbase.advanced.model.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,30 +25,25 @@ public class Amount {
     private String value;
     private String currency;
 
-    // Default constructor
     public Amount() {}
 
-    // Constructor
     public Amount(String value, String currency) {
         this.value = value;
         this.currency = currency;
     }
 
-    // Custom constructor to handle JSON objects
     @JsonCreator
     public Amount(@JsonProperty("value") JsonNode valueNode, @JsonProperty("currency") String currency) {
         if (valueNode.isNumber()) {
-            this.value = valueNode.asText();  // Convert number to string
+            this.value = valueNode.asText();
         } else if (valueNode.isTextual()) {
-            this.value = valueNode.asText();  // Direct string value
+            this.value = valueNode.asText();
         } else {
-            // Handle more complex cases if needed
             throw new IllegalArgumentException("Unsupported value type for Amount: " + valueNode);
         }
         this.currency = currency;
     }
 
-    // Getters and Setters
     public String getValue() {
         return value;
     }

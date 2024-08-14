@@ -160,21 +160,17 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         String path = Constants.API_BASE_PATH + request.getPath();
 
         try {
-            // Generate the JWT token
             String jwtHost = new URI(baseUrl).getHost();
             String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
 
-            // Construct the full URI
             String requestUri = baseUrl + path;
             String queryString = request.getQueryString();
             if (queryString != null && !queryString.isEmpty()) {
                 requestUri += "?" + queryString;
             }
 
-            // Serialize the request body
             String requestBody = request.getBody();
 
-            // Create the HTTP PUT request
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(URI.create(requestUri))
                     .header("Authorization", "Bearer " + jwtToken)
@@ -183,7 +179,6 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
-            // Send the request and process the response
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
@@ -585,7 +580,28 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
                 .build();
     }
 
+    @Override
+    public CreateOrderResponse createOrder(CreateOrderRequest request) throws CoinbaseAdvancedException {
+        CreateOrderResponse resp = doPost(request, CreateOrderResponse.class);
+        return CreateOrderResponse.Builder.from(resp).build();
+    }
 
+    @Override
+    public CancelOrdersResponse cancelOrders(CancelOrdersRequest request) throws CoinbaseAdvancedException {
+        CancelOrdersResponse resp = doPost(request, CancelOrdersResponse.class);
+        return CancelOrdersResponse.Builder.from(resp).build();
+    }
 
+    @Override
+    public EditOrderResponse editOrder(EditOrderRequest request) throws CoinbaseAdvancedException {
+        EditOrderResponse resp = doPost(request, EditOrderResponse.class);
+        return EditOrderResponse.Builder.from(resp)
+                .build();
+    }
 
+    @Override
+    public PreviewEditOrderResponse previewEditOrder(PreviewEditOrderRequest request) throws CoinbaseAdvancedException {
+        PreviewEditOrderResponse resp = doPost(request, PreviewEditOrderResponse.class);
+        return PreviewEditOrderResponse.Builder.from(resp).build();
+    }
 }
