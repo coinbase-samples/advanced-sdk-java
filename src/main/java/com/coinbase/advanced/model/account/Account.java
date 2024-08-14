@@ -16,6 +16,7 @@
 
 package com.coinbase.advanced.model.account;
 
+import com.coinbase.advanced.model.common.Amount;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Account {

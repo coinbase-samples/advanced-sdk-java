@@ -21,13 +21,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true) // Add this annotation
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ListAccountsResponse {
 
     @JsonProperty("accounts")
     private List<Account> accounts;
 
-    @JsonProperty("has_next")  // Map these fields directly to the ListAccountsResponse class
+    @JsonProperty("has_next")
     private boolean hasNext;
 
     @JsonProperty("cursor")
@@ -38,14 +38,11 @@ public class ListAccountsResponse {
 
     private Pagination pagination;
 
-    private ListAccountsRequest request;
-
     public ListAccountsResponse() {}
 
     private ListAccountsResponse(Builder builder) {
         this.accounts = builder.accounts;
         this.pagination = builder.pagination;
-        this.request = builder.request;
         this.hasNext = builder.hasNext;
         this.cursor = builder.cursor;
         this.size = builder.size;
@@ -71,14 +68,9 @@ public class ListAccountsResponse {
         return size;
     }
 
-    public ListAccountsRequest getRequest() {
-        return request;
-    }
-
     public static class Builder {
         private List<Account> accounts;
         private Pagination pagination;
-        private ListAccountsRequest request;
         private boolean hasNext;
         private String cursor;
         private int size;
@@ -105,11 +97,6 @@ public class ListAccountsResponse {
 
         public Builder size(int size) {
             this.size = size;
-            return this;
-        }
-
-        public Builder request(ListAccountsRequest request) {
-            this.request = request;
             return this;
         }
 
