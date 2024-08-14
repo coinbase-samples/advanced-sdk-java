@@ -20,7 +20,6 @@ import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.http.*;
 import com.coinbase.advanced.model.account.*;
-import com.coinbase.advanced.model.common.Pagination;
 import com.coinbase.advanced.model.convert.*;
 import com.coinbase.advanced.model.fees.*;
 import com.coinbase.advanced.model.futures.*;
@@ -564,6 +563,28 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         return ListOrdersResponse.Builder.from(resp)
                 .build();
     }
+
+    @Override
+    public GetOrderResponse getOrder(GetOrderRequest request) throws CoinbaseAdvancedException {
+        GetOrderResponse resp = doGet(request, GetOrderResponse.class);
+        return GetOrderResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public ListFillsResponse listFills(ListFillsRequest request) throws CoinbaseAdvancedException {
+        ListFillsResponse resp = doGet(request, ListFillsResponse.class);
+        return ListFillsResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public CreateOrderPreviewResponse createOrderPreview(CreateOrderPreviewRequest request) throws CoinbaseAdvancedException {
+        CreateOrderPreviewResponse resp = doPost(request, CreateOrderPreviewResponse.class);
+        return CreateOrderPreviewResponse.Builder.from(resp)
+                .build();
+    }
+
 
 
 
