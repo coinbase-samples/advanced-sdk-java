@@ -17,20 +17,13 @@
 package com.coinbase.advanced.client;
 
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
-import com.coinbase.advanced.model.account.GetAccountRequest;
-import com.coinbase.advanced.model.account.GetAccountResponse;
-import com.coinbase.advanced.model.account.ListAccountsRequest;
-import com.coinbase.advanced.model.account.ListAccountsResponse;
+import com.coinbase.advanced.model.account.*;
 import com.coinbase.advanced.model.convert.*;
-import com.coinbase.advanced.model.fees.GetTransactionsSummaryRequest;
-import com.coinbase.advanced.model.fees.GetTransactionsSummaryResponse;
+import com.coinbase.advanced.model.fees.*;
 import com.coinbase.advanced.model.futures.*;
-import com.coinbase.advanced.model.market.GetServerTimeResponse;
+import com.coinbase.advanced.model.market.*;
 import com.coinbase.advanced.model.orders.*;
-import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodRequest;
-import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodResponse;
-import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsRequest;
-import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsResponse;
+import com.coinbase.advanced.model.paymentmethods.*;
 import com.coinbase.advanced.model.perpetuals.*;
 import com.coinbase.advanced.model.portfolio.*;
 import com.coinbase.advanced.model.product.*;
@@ -95,15 +88,13 @@ public interface CoinbaseAdvancedApi {
     ListFuturesSweepsResponse listFuturesSweeps(ListFuturesSweepsRequest request) throws CoinbaseAdvancedException;
     CancelPendingFuturesSweepResponse cancelPendingFuturesSweep(CancelPendingFuturesSweepRequest request) throws CoinbaseAdvancedException;
 
-    ListOrdersResponse listOrders(ListOrdersRequest request) throws CoinbaseAdvancedException;
-
-    GetOrderResponse getOrder(GetOrderRequest request) throws CoinbaseAdvancedException;
-
-    ListFillsResponse listFills(ListFillsRequest request) throws CoinbaseAdvancedException;
-
-    CreateOrderPreviewResponse createOrderPreview(CreateOrderPreviewRequest request) throws CoinbaseAdvancedException;
-
     // Orders
-
-
+    ListOrdersResponse listOrders(ListOrdersRequest request) throws CoinbaseAdvancedException;
+    GetOrderResponse getOrder(GetOrderRequest request) throws CoinbaseAdvancedException;
+    ListFillsResponse listFills(ListFillsRequest request) throws CoinbaseAdvancedException;
+    CreateOrderPreviewResponse createOrderPreview(CreateOrderPreviewRequest request) throws CoinbaseAdvancedException;
+    CreateOrderResponse createOrder(CreateOrderRequest request) throws CoinbaseAdvancedException;
+    CancelOrdersResponse cancelOrders(CancelOrdersRequest request) throws CoinbaseAdvancedException;
+    EditOrderResponse editOrder(EditOrderRequest request) throws CoinbaseAdvancedException;
+    PreviewEditOrderResponse previewEditOrder(PreviewEditOrderRequest request) throws CoinbaseAdvancedException;
 }

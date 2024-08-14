@@ -72,7 +72,6 @@ public class Fee {
         this.disclosure = disclosure;
     }
 
-    // Builder class
     public static class Builder {
         private String title;
         private String description;
