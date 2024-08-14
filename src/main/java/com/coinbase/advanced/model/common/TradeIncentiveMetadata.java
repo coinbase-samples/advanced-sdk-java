@@ -1,4 +1,4 @@
-package com.coinbase.advanced.model.convert;
+package com.coinbase.advanced.model.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

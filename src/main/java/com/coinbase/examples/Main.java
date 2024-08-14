@@ -18,20 +18,7 @@ package com.coinbase.examples;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedApi;
 import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
-import com.coinbase.advanced.model.account.GetAccountRequest;
-import com.coinbase.advanced.model.account.GetAccountResponse;
-import com.coinbase.advanced.model.fees.GetTransactionsSummaryRequest;
-import com.coinbase.advanced.model.fees.GetTransactionsSummaryResponse;
-import com.coinbase.advanced.model.market.GetServerTimeResponse;
-import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodRequest;
-import com.coinbase.advanced.model.paymentmethods.GetPaymentMethodResponse;
-import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsRequest;
-import com.coinbase.advanced.model.paymentmethods.ListPaymentMethodsResponse;
-import com.coinbase.advanced.model.portfolio.GetPortfolioBreakdownRequest;
-import com.coinbase.advanced.model.portfolio.GetPortfolioBreakdownResponse;
-import com.coinbase.advanced.model.portfolio.ListPortfoliosRequest;
-import com.coinbase.advanced.model.portfolio.ListPortfoliosResponse;
-import com.coinbase.advanced.model.product.*;
+import com.coinbase.advanced.model.portfolio.*;
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.account.ListAccountsRequest;
@@ -70,10 +57,20 @@ public class Main {
 //                    .build();
 //            GetPaymentMethodResponse getResponse = client.getPaymentMethod(request);
 
-            GetServerTimeResponse getResponse = client.getServerTime();
+            EditPortfolioRequest request = new EditPortfolioRequest.Builder()
+                    .portfolioUuid("f787943d-689d-4c5e-9275-f79bb2608645")
+                    .name("sdk java 4")
+                    .build();
+
+            EditPortfolioResponse delResponse = client.editPortfolio(request);
 
 
-            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(getResponse);
+
+
+
+
+
+            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(delResponse);
             System.out.println("List Accounts Response:");
             System.out.println(prettyJson);
 
