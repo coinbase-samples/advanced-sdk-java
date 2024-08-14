@@ -20,6 +20,7 @@ import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.http.*;
 import com.coinbase.advanced.model.account.*;
+import com.coinbase.advanced.model.common.Pagination;
 import com.coinbase.advanced.model.convert.*;
 import com.coinbase.advanced.model.fees.*;
 import com.coinbase.advanced.model.futures.*;
@@ -28,6 +29,7 @@ import com.coinbase.advanced.model.perpetuals.*;
 import com.coinbase.advanced.model.portfolio.*;
 import com.coinbase.advanced.model.market.*;
 import com.coinbase.advanced.model.product.*;
+import com.coinbase.advanced.model.orders.*;
 import com.coinbase.advanced.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -556,8 +558,12 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         return CancelPendingFuturesSweepResponse.Builder.from(resp).build();
     }
 
-
-
+    @Override
+    public ListOrdersResponse listOrders(ListOrdersRequest request) throws CoinbaseAdvancedException {
+        ListOrdersResponse resp = doGet(request, ListOrdersResponse.class);
+        return ListOrdersResponse.Builder.from(resp)
+                .build();
+    }
 
 
 

@@ -18,6 +18,8 @@ package com.coinbase.examples;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedApi;
 import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.model.orders.ListOrdersRequest;
+import com.coinbase.advanced.model.orders.ListOrdersResponse;
 import com.coinbase.advanced.model.portfolio.*;
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
@@ -49,28 +51,28 @@ public class Main {
 //            ListPortfoliosRequest listReq = new ListPortfoliosRequest();
 //            ListPortfoliosResponse listResponse = client.listPortfolios(listReq);
 
-//            ListPaymentMethodsRequest request = new ListPaymentMethodsRequest();
-//            ListPaymentMethodsResponse listResponse = client.listPaymentMethods(request);
+            ListOrdersRequest request = new ListOrdersRequest();
+            ListOrdersResponse listResponse = client.listOrders(request);
 
 //            GetPaymentMethodRequest request = new GetPaymentMethodRequest.Builder()
 //                    .paymentMethodId("ef38dddf-af89-4265-87be-b4ba58b318c2")
 //                    .build();
 //            GetPaymentMethodResponse getResponse = client.getPaymentMethod(request);
 
-            EditPortfolioRequest request = new EditPortfolioRequest.Builder()
-                    .portfolioUuid("f787943d-689d-4c5e-9275-f79bb2608645")
-                    .name("sdk java 4")
-                    .build();
-
-            EditPortfolioResponse delResponse = client.editPortfolio(request);
-
-
+//            EditPortfolioRequest request = new EditPortfolioRequest.Builder()
+//                    .portfolioUuid("f787943d-689d-4c5e-9275-f79bb2608645")
+//                    .name("sdk java 4")
+//                    .build();
+//
+//            EditPortfolioResponse delResponse = client.editPortfolio(request);
 
 
 
 
 
-            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(delResponse);
+
+
+            String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(listResponse);
             System.out.println("List Accounts Response:");
             System.out.println(prettyJson);
 
