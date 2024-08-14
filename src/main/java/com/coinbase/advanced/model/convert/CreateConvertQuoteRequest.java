@@ -1,6 +1,7 @@
 package com.coinbase.advanced.model.convert;
 
 import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
+import com.coinbase.advanced.model.common.TradeIncentiveMetadata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

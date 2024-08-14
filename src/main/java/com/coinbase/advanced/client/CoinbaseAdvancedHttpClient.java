@@ -22,7 +22,9 @@ import com.coinbase.advanced.http.*;
 import com.coinbase.advanced.model.account.*;
 import com.coinbase.advanced.model.convert.*;
 import com.coinbase.advanced.model.fees.*;
+import com.coinbase.advanced.model.futures.*;
 import com.coinbase.advanced.model.paymentmethods.*;
+import com.coinbase.advanced.model.perpetuals.*;
 import com.coinbase.advanced.model.portfolio.*;
 import com.coinbase.advanced.model.market.*;
 import com.coinbase.advanced.model.product.*;
@@ -122,20 +124,22 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
     }
 
     protected <T> T doPost(CoinbaseAdvancedPostRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
-        String requestMethod = "POST";
         String path = Constants.API_BASE_PATH + request.getPath();
 
         try {
             String jwtHost = new URI(baseUrl).getHost();
-            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
+            String jwtToken = credentials.generateJwt("POST", jwtHost, path);
 
             URI requestUri = new URI(baseUrl + path);
+
+            String requestBody = request.getBody();
 
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(requestUri)
                     .header("Authorization", "Bearer " + jwtToken)
+                    .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(request)))
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
@@ -146,9 +150,104 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
 
             return mapper.readValue(response.body(), responseClass);
         } catch (Exception e) {
-            throw new CoinbaseAdvancedException("Failed to execute POST request", e);
+            throw new CoinbaseAdvancedException("Failed to complete request", e);
         }
     }
+
+    protected <T> T doPut(CoinbaseAdvancedPutRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
+        String requestMethod = "PUT";
+        String path = Constants.API_BASE_PATH + request.getPath();
+
+        try {
+            // Generate the JWT token
+            String jwtHost = new URI(baseUrl).getHost();
+            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
+
+            // Construct the full URI
+            String requestUri = baseUrl + path;
+            String queryString = request.getQueryString();
+            if (queryString != null && !queryString.isEmpty()) {
+                requestUri += "?" + queryString;
+            }
+
+            // Serialize the request body
+            String requestBody = request.getBody();
+
+            // Create the HTTP PUT request
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(requestUri))
+                    .header("Authorization", "Bearer " + jwtToken)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            // Send the request and process the response
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 200) {
+                String errorMessage = "Failed to complete request, status code: " + response.statusCode();
+                String responseBody = response.body();
+                if (responseBody != null && !responseBody.isEmpty()) {
+                    errorMessage += ", API response: " + responseBody;
+                }
+                throw new CoinbaseAdvancedException(response.statusCode(), errorMessage);
+            }
+
+            return mapper.readValue(response.body(), responseClass);
+        } catch (Exception e) {
+            throw new CoinbaseAdvancedException("Failed to complete request", e);
+        }
+    }
+
+
+
+
+    public <T> T doDelete(CoinbaseAdvancedDeleteRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
+        String requestMethod = "DELETE";
+        String path = Constants.API_BASE_PATH + request.getPath();
+
+        try {
+            String jwtHost = new URI(baseUrl).getHost();
+            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
+            System.out.println("Generated JWT in client: " + jwtToken);
+
+            String requestUri = baseUrl + path;
+
+            String queryString = request.getQueryString();
+            if (queryString != null && !queryString.isEmpty()) {
+                requestUri += "?" + queryString;
+            }
+
+            System.out.println("Request URI with Query String: " + requestUri);
+
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(requestUri))
+                    .header("Authorization", "Bearer " + jwtToken)
+                    .header("Accept", "application/json")
+                    .DELETE()
+                    .build();
+
+            System.out.println("Debug: HTTP Request URI - " + httpRequest.uri().toString());
+            System.out.println("Request Headers in client:");
+            httpRequest.headers().map().forEach((key, value) -> System.out.println(key + ": " + value));
+
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("Response status code: " + response.statusCode());
+            System.out.println("Response body: " + response.body());
+
+            if (response.statusCode() != 200) {
+                throw new CoinbaseAdvancedException(response.statusCode(), "Failed to complete request, status code: " + response.statusCode());
+            }
+
+            return mapper.readValue(response.body(), responseClass);
+        } catch (Exception e) {
+            throw new CoinbaseAdvancedException("Failed to complete request", e);
+        }
+    }
+
+
 
 
 
@@ -176,6 +275,35 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
                 .breakdown(resp.getBreakdown())
                 .build();
     }
+
+    @Override
+    public CreatePortfolioResponse createPortfolio(CreatePortfolioRequest request) throws CoinbaseAdvancedException {
+        CreatePortfolioResponse resp = doPost(request, CreatePortfolioResponse.class);
+        return CreatePortfolioResponse.Builder.from(resp).build();
+    }
+
+    @Override
+    public DeletePortfolioResponse deletePortfolio(DeletePortfolioRequest request) throws CoinbaseAdvancedException {
+        DeletePortfolioResponse resp = doDelete(request, DeletePortfolioResponse.class);
+        return new DeletePortfolioResponse.Builder()
+                .description(resp.getDescription())
+                .schema(resp.getSchema())
+                .build();
+    }
+
+    @Override
+    public EditPortfolioResponse editPortfolio(EditPortfolioRequest request) throws CoinbaseAdvancedException {
+        EditPortfolioResponse resp = doPut(request, EditPortfolioResponse.class);
+        return EditPortfolioResponse.Builder.from(resp).build();
+    }
+
+    @Override
+    public MovePortfolioFundsResponse movePortfolioFunds(MovePortfolioFundsRequest request) throws CoinbaseAdvancedException {
+        MovePortfolioFundsResponse resp = doPost(request, MovePortfolioFundsResponse.class);
+        return MovePortfolioFundsResponse.Builder.from(resp)
+                .build();
+    }
+
 
     @Override
     public GetAccountResponse getAccount(GetAccountRequest request) throws CoinbaseAdvancedException {
@@ -324,5 +452,113 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         return CommitConvertQuoteResponse.Builder.from(resp)
                 .build();
     }
+
+    @Override
+    public AllocatePortfolioResponse allocatePortfolio(AllocatePortfolioRequest request) throws CoinbaseAdvancedException {
+        AllocatePortfolioResponse resp = doPost(request, AllocatePortfolioResponse.class);
+        return AllocatePortfolioResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetPerpetualsPortfolioSummaryResponse getPerpetualsPortfolioSummary(GetPerpetualsPortfolioSummaryRequest request) throws CoinbaseAdvancedException {
+        GetPerpetualsPortfolioSummaryResponse resp = doGet(request, GetPerpetualsPortfolioSummaryResponse.class);
+        return GetPerpetualsPortfolioSummaryResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public ListPerpetualsPositionsResponse listPerpetualsPositions(ListPerpetualsPositionsRequest request) throws CoinbaseAdvancedException {
+        ListPerpetualsPositionsResponse resp = doGet(request, ListPerpetualsPositionsResponse.class);
+        return new ListPerpetualsPositionsResponse.Builder()
+                .positions(resp.getPositions())
+                .summary(resp.getSummary())
+                .build();
+    }
+
+    @Override
+    public GetPerpetualsPositionResponse getPerpetualsPosition(GetPerpetualsPositionRequest request) throws CoinbaseAdvancedException {
+        GetPerpetualsPositionResponse resp = doGet(request, GetPerpetualsPositionResponse.class);
+        return GetPerpetualsPositionResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetPortfoliosBalancesResponse getPortfoliosBalances(GetPortfoliosBalancesRequest request) throws CoinbaseAdvancedException {
+        GetPortfoliosBalancesResponse resp = doGet(request, GetPortfoliosBalancesResponse.class);
+        return GetPortfoliosBalancesResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public OptInOutMultiAssetCollateralResponse optInOutMultiAssetCollateral(OptInOutMultiAssetCollateralRequest request) throws CoinbaseAdvancedException {
+        OptInOutMultiAssetCollateralResponse resp = doPost(request, OptInOutMultiAssetCollateralResponse.class);
+        return OptInOutMultiAssetCollateralResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetFuturesBalanceSummaryResponse getFuturesBalanceSummary(GetFuturesBalanceSummaryRequest request) throws CoinbaseAdvancedException {
+        GetFuturesBalanceSummaryResponse resp = doGet(request, GetFuturesBalanceSummaryResponse.class);
+        return GetFuturesBalanceSummaryResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetIntradayMarginSettingResponse getIntradayMarginSetting(GetIntradayMarginSettingRequest request) throws CoinbaseAdvancedException {
+        GetIntradayMarginSettingResponse resp = doGet(request, GetIntradayMarginSettingResponse.class);
+        return GetIntradayMarginSettingResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public SetIntradayMarginSettingResponse setIntradayMarginSetting(SetIntradayMarginSettingRequest request) throws CoinbaseAdvancedException {
+        SetIntradayMarginSettingResponse resp = doPost(request, SetIntradayMarginSettingResponse.class);
+        return SetIntradayMarginSettingResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetCurrentMarginWindowResponse getCurrentMarginWindow(GetCurrentMarginWindowRequest request) throws CoinbaseAdvancedException {
+        GetCurrentMarginWindowResponse resp = doGet(request, GetCurrentMarginWindowResponse.class);
+        return GetCurrentMarginWindowResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public ListFuturesPositionsResponse listFuturesPositions(ListFuturesPositionsRequest request) throws CoinbaseAdvancedException {
+        ListFuturesPositionsResponse resp = doGet(request, ListFuturesPositionsResponse.class);
+        return ListFuturesPositionsResponse.Builder.from(resp)
+                .build();
+    }
+
+    @Override
+    public GetFuturesPositionResponse getFuturesPosition(GetFuturesPositionRequest request) throws CoinbaseAdvancedException {
+        GetFuturesPositionResponse resp = doGet(request, GetFuturesPositionResponse.class);
+        return GetFuturesPositionResponse.Builder.from(resp).build();
+    }
+
+    @Override
+    public ScheduleFuturesSweepResponse scheduleFuturesSweep(ScheduleFuturesSweepRequest request) throws CoinbaseAdvancedException {
+        ScheduleFuturesSweepResponse resp = doPost(request, ScheduleFuturesSweepResponse.class);
+        return ScheduleFuturesSweepResponse.Builder.from(resp).build();
+    }
+
+    @Override
+    public ListFuturesSweepsResponse listFuturesSweeps(ListFuturesSweepsRequest request) throws CoinbaseAdvancedException {
+        ListFuturesSweepsResponse resp = doGet(request, ListFuturesSweepsResponse.class);
+        return ListFuturesSweepsResponse.Builder.from(resp).build();
+    }
+
+    @Override
+    public CancelPendingFuturesSweepResponse cancelPendingFuturesSweep(CancelPendingFuturesSweepRequest request) throws CoinbaseAdvancedException {
+        CancelPendingFuturesSweepResponse resp = doDelete(request, CancelPendingFuturesSweepResponse.class);
+        return CancelPendingFuturesSweepResponse.Builder.from(resp).build();
+    }
+
+
+
+
+
 
 }
