@@ -60,7 +60,6 @@ public class CoinbaseCredentials {
         data.put("sub", accessKey);
         data.put("uri", uri);
 
-        // Load private key
         PEMParser pemParser = new PEMParser(new StringReader(privatePemKey));
         JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
         Object object = pemParser.readObject();
@@ -75,12 +74,10 @@ public class CoinbaseCredentials {
         }
         pemParser.close();
 
-        // Convert to ECPrivateKey
         KeyFactory keyFactory = KeyFactory.getInstance("EC");
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
         ECPrivateKey ecPrivateKey = (ECPrivateKey) keyFactory.generatePrivate(keySpec);
 
-        // Create JWT
         JWTClaimsSet.Builder claimsSetBuilder = new JWTClaimsSet.Builder();
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             claimsSetBuilder.claim(entry.getKey(), entry.getValue());

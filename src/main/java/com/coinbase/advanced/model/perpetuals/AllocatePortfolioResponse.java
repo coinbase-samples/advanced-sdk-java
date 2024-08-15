@@ -34,7 +34,6 @@ public class AllocatePortfolioResponse {
         this.schema = builder.schema;
     }
 
-    // Getters and Setters
     public String getDescription() {
         return description;
     }
@@ -51,7 +50,10 @@ public class AllocatePortfolioResponse {
         this.schema = schema;
     }
 
-    // Builder Class
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String description;
         private Schema schema;

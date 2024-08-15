@@ -51,39 +51,43 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         this.baseUrl = baseUrl;
     }
 
-    protected <T> T doGet(CoinbaseAdvancedGetRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
-        String requestMethod = "GET";
-        String path = Constants.API_BASE_PATH + request.getPath();
-
+    private String generateJwtAndBuildUri(String method, String path, String queryString) throws CoinbaseAdvancedException {
         try {
             String jwtHost = new URI(baseUrl).getHost();
-            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
-            System.out.println("Generated JWT in client: " + jwtToken);
+            String jwtToken = credentials.generateJwt(method, jwtHost, path);
 
             String requestUri = baseUrl + path;
-
-            String queryString = request.getQueryString();
             if (queryString != null && !queryString.isEmpty()) {
                 requestUri += "?" + queryString;
             }
 
-            System.out.println("Request URI with Query String: " + requestUri);
+            return requestUri + "|" + jwtToken;
+        } catch (Exception e) {
+            throw new CoinbaseAdvancedException("Error generating JWT or building URI", e);
+        }
+    }
 
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(requestUri))
-                    .header("Authorization", "Bearer " + jwtToken)
-                    .header("Accept", "application/json")
-                    .GET()
-                    .build();
+    private HttpRequest buildHttpRequest(String method, String uri, String jwtToken, String body) {
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .header("Authorization", "Bearer " + jwtToken)
+                .header("Accept", "application/json");
 
-            System.out.println("Debug: HTTP Request URI - " + httpRequest.uri().toString());
-            System.out.println("Request Headers in client:");
-            httpRequest.headers().map().forEach((key, value) -> System.out.println(key + ": " + value));
+        if ("POST".equalsIgnoreCase(method) || "PUT".equalsIgnoreCase(method)) {
+            requestBuilder.header("Content-Type", "application/json")
+                    .method(method, HttpRequest.BodyPublishers.ofString(body));
+        } else if ("DELETE".equalsIgnoreCase(method)) {
+            requestBuilder.DELETE();
+        } else {
+            requestBuilder.GET();
+        }
 
+        return requestBuilder.build();
+    }
+
+    private <T> T sendRequestAndParseResponse(HttpRequest httpRequest, Class<T> responseClass) throws CoinbaseAdvancedException {
+        try {
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            System.out.println("Response status code: " + response.statusCode());
-            System.out.println("Response body: " + response.body());
 
             if (response.statusCode() != 200) {
                 throw new CoinbaseAdvancedException(response.statusCode(), "Failed to complete request, status code: " + response.statusCode());
@@ -95,157 +99,58 @@ public class CoinbaseAdvancedHttpClient implements CoinbaseAdvancedApi {
         }
     }
 
+    protected <T> T doGet(CoinbaseAdvancedGetRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
+        try {
+            String[] uriAndToken = generateJwtAndBuildUri("GET", Constants.API_BASE_PATH + request.getPath(), request.getQueryString()).split("\\|");
+            HttpRequest httpRequest = buildHttpRequest("GET", uriAndToken[0], uriAndToken[1], null);
+            return sendRequestAndParseResponse(httpRequest, responseClass);
+        } catch (Exception e) {
+            throw new CoinbaseAdvancedException("Failed to complete GET request", e);
+        }
+    }
+
     protected <T> T doGetPublic(String path, String queryString, Class<T> responseClass) throws CoinbaseAdvancedException {
         try {
-            String fullPath = "/api/v3/brokerage" + path;
-
+            String requestUri = baseUrl + "/api/v3/brokerage" + path;
             if (queryString != null && !queryString.isEmpty()) {
-                fullPath += "?" + queryString;
+                requestUri += "?" + queryString;
             }
-
-            URI requestUri = new URI(baseUrl + fullPath);
-            System.out.println("Request URI for public endpoint: " + requestUri.toString());
-
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(requestUri)
-                    .header("Accept", "application/json")
-                    .GET()
-                    .build();
-
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                throw new CoinbaseAdvancedException(response.statusCode(), "Failed to complete public request, status code: " + response.statusCode());
-            }
-
-            return mapper.readValue(response.body(), responseClass);
+            HttpRequest httpRequest = buildHttpRequest("GET", requestUri, null, null);
+            return sendRequestAndParseResponse(httpRequest, responseClass);
         } catch (Exception e) {
-            throw new CoinbaseAdvancedException("Failed to parse public response", e);
+            throw new CoinbaseAdvancedException("Failed to complete GET public request", e);
         }
     }
 
     protected <T> T doPost(CoinbaseAdvancedPostRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
-        String path = Constants.API_BASE_PATH + request.getPath();
-
         try {
-            String jwtHost = new URI(baseUrl).getHost();
-            String jwtToken = credentials.generateJwt("POST", jwtHost, path);
-
-            URI requestUri = new URI(baseUrl + path);
-
-            String requestBody = request.getBody();
-
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(requestUri)
-                    .header("Authorization", "Bearer " + jwtToken)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                throw new CoinbaseAdvancedException(response.statusCode(), "Failed to complete request: " + response.body());
-            }
-
-            return mapper.readValue(response.body(), responseClass);
+            String[] uriAndToken = generateJwtAndBuildUri("POST", Constants.API_BASE_PATH + request.getPath(), null).split("\\|");
+            HttpRequest httpRequest = buildHttpRequest("POST", uriAndToken[0], uriAndToken[1], request.getBody());
+            return sendRequestAndParseResponse(httpRequest, responseClass);
         } catch (Exception e) {
-            throw new CoinbaseAdvancedException("Failed to complete request", e);
+            throw new CoinbaseAdvancedException("Failed to complete POST request", e);
         }
     }
 
     protected <T> T doPut(CoinbaseAdvancedPutRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
-        String requestMethod = "PUT";
-        String path = Constants.API_BASE_PATH + request.getPath();
-
         try {
-            String jwtHost = new URI(baseUrl).getHost();
-            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
-
-            String requestUri = baseUrl + path;
-            String queryString = request.getQueryString();
-            if (queryString != null && !queryString.isEmpty()) {
-                requestUri += "?" + queryString;
-            }
-
-            String requestBody = request.getBody();
-
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(requestUri))
-                    .header("Authorization", "Bearer " + jwtToken)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                String errorMessage = "Failed to complete request, status code: " + response.statusCode();
-                String responseBody = response.body();
-                if (responseBody != null && !responseBody.isEmpty()) {
-                    errorMessage += ", API response: " + responseBody;
-                }
-                throw new CoinbaseAdvancedException(response.statusCode(), errorMessage);
-            }
-
-            return mapper.readValue(response.body(), responseClass);
+            String[] uriAndToken = generateJwtAndBuildUri("PUT", Constants.API_BASE_PATH + request.getPath(), request.getQueryString()).split("\\|");
+            HttpRequest httpRequest = buildHttpRequest("PUT", uriAndToken[0], uriAndToken[1], request.getBody());
+            return sendRequestAndParseResponse(httpRequest, responseClass);
         } catch (Exception e) {
-            throw new CoinbaseAdvancedException("Failed to complete request", e);
+            throw new CoinbaseAdvancedException("Failed to complete PUT request", e);
         }
     }
-
-
-
 
     public <T> T doDelete(CoinbaseAdvancedDeleteRequest request, Class<T> responseClass) throws CoinbaseAdvancedException {
-        String requestMethod = "DELETE";
-        String path = Constants.API_BASE_PATH + request.getPath();
-
         try {
-            String jwtHost = new URI(baseUrl).getHost();
-            String jwtToken = credentials.generateJwt(requestMethod, jwtHost, path);
-            System.out.println("Generated JWT in client: " + jwtToken);
-
-            String requestUri = baseUrl + path;
-
-            String queryString = request.getQueryString();
-            if (queryString != null && !queryString.isEmpty()) {
-                requestUri += "?" + queryString;
-            }
-
-            System.out.println("Request URI with Query String: " + requestUri);
-
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(requestUri))
-                    .header("Authorization", "Bearer " + jwtToken)
-                    .header("Accept", "application/json")
-                    .DELETE()
-                    .build();
-
-            System.out.println("Debug: HTTP Request URI - " + httpRequest.uri().toString());
-            System.out.println("Request Headers in client:");
-            httpRequest.headers().map().forEach((key, value) -> System.out.println(key + ": " + value));
-
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            System.out.println("Response status code: " + response.statusCode());
-            System.out.println("Response body: " + response.body());
-
-            if (response.statusCode() != 200) {
-                throw new CoinbaseAdvancedException(response.statusCode(), "Failed to complete request, status code: " + response.statusCode());
-            }
-
-            return mapper.readValue(response.body(), responseClass);
+            String[] uriAndToken = generateJwtAndBuildUri("DELETE", Constants.API_BASE_PATH + request.getPath(), request.getQueryString()).split("\\|");
+            HttpRequest httpRequest = buildHttpRequest("DELETE", uriAndToken[0], uriAndToken[1], null);
+            return sendRequestAndParseResponse(httpRequest, responseClass);
         } catch (Exception e) {
-            throw new CoinbaseAdvancedException("Failed to complete request", e);
+            throw new CoinbaseAdvancedException("Failed to complete DELETE request", e);
         }
     }
-
-
-
-
 
     @Override
     public ListAccountsResponse listAccounts(ListAccountsRequest request) throws CoinbaseAdvancedException {

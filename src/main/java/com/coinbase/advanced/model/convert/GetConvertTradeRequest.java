@@ -57,7 +57,7 @@ public class GetConvertTradeRequest implements CoinbaseAdvancedGetRequest {
 
     @Override
     public String getQueryString() {
-        return "";  // No additional query parameters needed
+        return "";
     }
 
     public static class Builder {

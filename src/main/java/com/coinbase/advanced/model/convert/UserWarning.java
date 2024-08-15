@@ -45,8 +45,6 @@ public class UserWarning {
         this.message = builder.message;
     }
 
-    // Getters and Setters
-
     public String getId() {
         return id;
     }
@@ -87,7 +85,6 @@ public class UserWarning {
         this.message = message;
     }
 
-    // Builder class
     public static class Builder {
         private String id;
         private Link link;

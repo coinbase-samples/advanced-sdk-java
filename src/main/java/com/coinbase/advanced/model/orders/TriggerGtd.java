@@ -47,7 +47,6 @@ public class TriggerGtd {
         this.endTime = endTime;
     }
 
-    // Builder Class
     public static class Builder {
         private String baseSize;
         private String limitPrice;

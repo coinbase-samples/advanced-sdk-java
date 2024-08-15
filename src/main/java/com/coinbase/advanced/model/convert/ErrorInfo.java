@@ -41,8 +41,6 @@ public class ErrorInfo {
         this.errorCta = builder.errorCta;
     }
 
-    // Getters and Setters
-
     public String getMessage() {
         return message;
     }
@@ -75,7 +73,6 @@ public class ErrorInfo {
         this.errorCta = errorCta;
     }
 
-    // Builder class
     public static class Builder {
         private String message;
         private String code;

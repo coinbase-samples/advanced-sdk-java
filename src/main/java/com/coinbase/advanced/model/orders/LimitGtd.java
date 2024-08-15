@@ -15,7 +15,6 @@ public class LimitGtd {
     @JsonProperty("post_only")
     private boolean postOnly;
 
-    // Getters and Setters
     public String getBaseSize() {
         return baseSize;
     }
@@ -48,7 +47,6 @@ public class LimitGtd {
         this.postOnly = postOnly;
     }
 
-    // Builder Class
     public static class Builder {
         private String baseSize;
         private String limitPrice;

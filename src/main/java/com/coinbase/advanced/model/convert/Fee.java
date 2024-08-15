@@ -30,8 +30,6 @@ public class Fee {
         this.disclosure = builder.disclosure;
     }
 
-    // Getters and Setters
-
     public String getTitle() {
         return title;
     }

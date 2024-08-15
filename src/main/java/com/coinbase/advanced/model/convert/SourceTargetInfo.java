@@ -37,8 +37,6 @@ public class SourceTargetInfo {
         this.ledgerAccount = builder.ledgerAccount;
     }
 
-    // Getters and Setters
-
     public String getType() {
         return type;
     }
@@ -63,7 +61,6 @@ public class SourceTargetInfo {
         this.ledgerAccount = ledgerAccount;
     }
 
-    // Builder class
     public static class Builder {
         private String type;
         private String network;

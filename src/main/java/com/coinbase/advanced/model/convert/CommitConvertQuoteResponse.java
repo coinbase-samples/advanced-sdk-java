@@ -37,6 +37,10 @@ public class CommitConvertQuoteResponse {
         this.trade = trade;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private Convert trade;
 

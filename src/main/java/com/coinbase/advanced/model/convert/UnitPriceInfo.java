@@ -46,7 +46,6 @@ public class UnitPriceInfo {
         this.sourceToFiat = sourceToFiat;
     }
 
-    // Builder class
     public static class Builder {
         private Amount targetToFiat;
         private Amount targetToSource;

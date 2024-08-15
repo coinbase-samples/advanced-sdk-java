@@ -37,8 +37,6 @@ public class LedgerAccount {
         this.owner = builder.owner;
     }
 
-    // Getters and Setters
-
     public String getAccountId() {
         return accountId;
     }
@@ -63,7 +61,6 @@ public class LedgerAccount {
         this.owner = owner;
     }
 
-    // Builder class
     public static class Builder {
         private String accountId;
         private String currency;

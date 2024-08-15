@@ -49,8 +49,6 @@ public class Candle {
         this.volume = builder.volume;
     }
 
-    // Getters and Setters
-
     public String getStart() {
         return start;
     }

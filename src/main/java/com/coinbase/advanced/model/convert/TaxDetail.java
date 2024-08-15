@@ -34,8 +34,6 @@ public class TaxDetail {
         this.amount = builder.amount;
     }
 
-    // Getters and Setters
-
     public String getName() {
         return name;
     }
@@ -52,7 +50,7 @@ public class TaxDetail {
         this.amount = amount;
     }
 
-    // Builder class
+
     public static class Builder {
         private String name;
         private Amount amount;

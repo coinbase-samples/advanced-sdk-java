@@ -74,7 +74,6 @@ public class StopLimitGtd {
         this.stopDirection = stopDirection;
     }
 
-    // Builder Class
     public static class Builder {
         private String baseSize;
         private String limitPrice;
