@@ -50,8 +50,6 @@ public class TradeIncentive {
         this.redeemed = builder.redeemed;
     }
 
-    // Getters and Setters
-
     public boolean isAppliedIncentive() {
         return appliedIncentive;
     }
@@ -100,7 +98,6 @@ public class TradeIncentive {
         this.redeemed = redeemed;
     }
 
-    // Builder class
     public static class Builder {
         private boolean appliedIncentive;
         private String userIncentiveId;

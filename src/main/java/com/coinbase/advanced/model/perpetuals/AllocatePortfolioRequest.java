@@ -59,7 +59,6 @@ public class AllocatePortfolioRequest implements CoinbaseAdvancedPostRequest {
         }
     }
 
-    // Getters and Setters
     public String getPortfolioUuid() {
         return portfolioUuid;
     }
@@ -92,7 +91,6 @@ public class AllocatePortfolioRequest implements CoinbaseAdvancedPostRequest {
         this.currency = currency;
     }
 
-    // Builder Class
     public static class Builder {
         private String portfolioUuid;
         private String symbol;

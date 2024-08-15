@@ -90,7 +90,6 @@ public class ListFillsRequest implements CoinbaseAdvancedGetRequest {
             queryString.append("cursor=").append(cursor).append("&");
         }
 
-        // Remove the last "&" if present
         if (queryString.length() > 0 && queryString.charAt(queryString.length() - 1) == '&') {
             queryString.deleteCharAt(queryString.length() - 1);
         }

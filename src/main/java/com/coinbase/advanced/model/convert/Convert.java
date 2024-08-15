@@ -120,8 +120,6 @@ public class Convert {
         this.fiatDenotedTotal = builder.fiatDenotedTotal;
     }
 
-    // Getters and Setters
-
     public String getId() {
         return id;
     }
@@ -306,7 +304,6 @@ public class Convert {
         this.fiatDenotedTotal = fiatDenotedTotal;
     }
 
-    // Builder class
     public static class Builder {
         private String id;
         private String status;

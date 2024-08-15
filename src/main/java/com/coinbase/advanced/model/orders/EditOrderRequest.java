@@ -40,17 +40,14 @@ public class EditOrderRequest implements CoinbaseAdvancedPostRequest {
         this.size = builder.size;
     }
 
-    // Getter for orderId
     public String getOrderId() {
         return orderId;
     }
 
-    // Getter for price
     public String getPrice() {
         return price;
     }
 
-    // Getter for size
     public String getSize() {
         return size;
     }

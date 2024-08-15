@@ -43,7 +43,6 @@ public class EditPortfolioRequest implements CoinbaseAdvancedPutRequest {
 
     @Override
     public String getBody() {
-        // Construct JSON body manually to avoid serialization issues
         try {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.writeValueAsString(new BodyContent(name));
@@ -54,7 +53,6 @@ public class EditPortfolioRequest implements CoinbaseAdvancedPutRequest {
 
     @Override
     public String getQueryString() {
-        // No query string required, return empty
         return "";
     }
 

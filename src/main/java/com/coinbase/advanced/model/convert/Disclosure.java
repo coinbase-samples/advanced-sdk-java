@@ -61,7 +61,6 @@ public class Disclosure {
         this.link = link;
     }
 
-    // Builder class
     public static class Builder {
         private String title;
         private String description;

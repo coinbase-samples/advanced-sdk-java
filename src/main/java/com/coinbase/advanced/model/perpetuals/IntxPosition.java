@@ -102,8 +102,6 @@ public class IntxPosition {
         this.positionNotional = builder.positionNotional;
     }
 
-    // Getters and Setters
-
     public String getProductId() {
         return productId;
     }

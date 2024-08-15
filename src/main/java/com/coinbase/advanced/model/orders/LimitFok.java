@@ -41,7 +41,6 @@ public class LimitFok {
         this.limitPrice = limitPrice;
     }
 
-    // Builder Class
     public static class Builder {
         private String baseSize;
         private String limitPrice;

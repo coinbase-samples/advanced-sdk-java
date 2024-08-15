@@ -57,7 +57,6 @@ public class OrderConfiguration {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private TriggerGtd triggerBracketGtd;
 
-    // Getters and Setters
     public MarketIoc getMarketMarketIoc() {
         return marketMarketIoc;
     }
@@ -130,7 +129,6 @@ public class OrderConfiguration {
         this.triggerBracketGtd = triggerBracketGtd;
     }
 
-    // Builder Class
     public static class Builder {
         private MarketIoc marketMarketIoc;
         private SorLimitIoc sorLimitIoc;

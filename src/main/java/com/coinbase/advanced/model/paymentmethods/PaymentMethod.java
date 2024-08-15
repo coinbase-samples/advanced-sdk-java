@@ -141,7 +141,6 @@ public class PaymentMethod {
         this.updatedAt = updatedAt;
     }
 
-    // Builder pattern
     public static class Builder {
         private String id;
         private String type;

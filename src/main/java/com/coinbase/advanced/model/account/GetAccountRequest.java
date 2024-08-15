@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GetAccountRequest implements CoinbaseAdvancedGetRequest {
 
     @JsonProperty("account_uuid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String accountUuid;
 
     public GetAccountRequest() {}

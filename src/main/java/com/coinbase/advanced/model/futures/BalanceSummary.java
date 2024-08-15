@@ -1,19 +1,3 @@
-/*
- * Copyright 2024-present Coinbase Global, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.coinbase.advanced.model.futures;
 
 import com.coinbase.advanced.model.common.Amount;
@@ -74,7 +58,105 @@ public class BalanceSummary {
         this.liquidationBufferPercentage = builder.liquidationBufferPercentage;
     }
 
-    // Getters and setters for each field
+    public Amount getFuturesBuyingPower() {
+        return futuresBuyingPower;
+    }
+
+    public void setFuturesBuyingPower(Amount futuresBuyingPower) {
+        this.futuresBuyingPower = futuresBuyingPower;
+    }
+
+    public Amount getTotalUsdBalance() {
+        return totalUsdBalance;
+    }
+
+    public void setTotalUsdBalance(Amount totalUsdBalance) {
+        this.totalUsdBalance = totalUsdBalance;
+    }
+
+    public Amount getCbiUsdBalance() {
+        return cbiUsdBalance;
+    }
+
+    public void setCbiUsdBalance(Amount cbiUsdBalance) {
+        this.cbiUsdBalance = cbiUsdBalance;
+    }
+
+    public Amount getCfmUsdBalance() {
+        return cfmUsdBalance;
+    }
+
+    public void setCfmUsdBalance(Amount cfmUsdBalance) {
+        this.cfmUsdBalance = cfmUsdBalance;
+    }
+
+    public Amount getTotalOpenOrdersHoldAmount() {
+        return totalOpenOrdersHoldAmount;
+    }
+
+    public void setTotalOpenOrdersHoldAmount(Amount totalOpenOrdersHoldAmount) {
+        this.totalOpenOrdersHoldAmount = totalOpenOrdersHoldAmount;
+    }
+
+    public Amount getUnrealizedPnl() {
+        return unrealizedPnl;
+    }
+
+    public void setUnrealizedPnl(Amount unrealizedPnl) {
+        this.unrealizedPnl = unrealizedPnl;
+    }
+
+    public Amount getDailyRealizedPnl() {
+        return dailyRealizedPnl;
+    }
+
+    public void setDailyRealizedPnl(Amount dailyRealizedPnl) {
+        this.dailyRealizedPnl = dailyRealizedPnl;
+    }
+
+    public Amount getInitialMargin() {
+        return initialMargin;
+    }
+
+    public void setInitialMargin(Amount initialMargin) {
+        this.initialMargin = initialMargin;
+    }
+
+    public Amount getAvailableMargin() {
+        return availableMargin;
+    }
+
+    public void setAvailableMargin(Amount availableMargin) {
+        this.availableMargin = availableMargin;
+    }
+
+    public Amount getLiquidationThreshold() {
+        return liquidationThreshold;
+    }
+
+    public void setLiquidationThreshold(Amount liquidationThreshold) {
+        this.liquidationThreshold = liquidationThreshold;
+    }
+
+    public Amount getLiquidationBufferAmount() {
+        return liquidationBufferAmount;
+    }
+
+    public void setLiquidationBufferAmount(Amount liquidationBufferAmount) {
+        this.liquidationBufferAmount = liquidationBufferAmount;
+    }
+
+    public String getLiquidationBufferPercentage() {
+        return liquidationBufferPercentage;
+    }
+
+    public void setLiquidationBufferPercentage(String liquidationBufferPercentage) {
+        this.liquidationBufferPercentage = liquidationBufferPercentage;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private Amount futuresBuyingPower;

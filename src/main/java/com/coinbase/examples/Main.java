@@ -36,10 +36,10 @@ public class Main {
 
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> credentialsMap = mapper.readValue(credsStringBlob, Map.class);
-            String privateKeyPEM = credentialsMap.get("privatePemKey");
             String accessKey = credentialsMap.get("accessKey");
+            String privatePemKey = credentialsMap.get("privatePemKey");
 
-            CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privateKeyPEM);
+            CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privatePemKey);
             CoinbaseAdvancedApi client = new CoinbaseAdvancedHttpClient(credentials, Constants.BASE_URL);
 
             ListPortfoliosRequest listReq = new ListPortfoliosRequest();

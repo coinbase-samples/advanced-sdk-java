@@ -53,7 +53,7 @@ public class GetPerpetualsPositionRequest implements CoinbaseAdvancedGetRequest 
 
     @Override
     public String getQueryString() {
-        return ""; // No query parameters needed
+        return "";
     }
 
     public static class Builder {

@@ -52,7 +52,6 @@ public class EditHistoryItem {
         this.replaceAcceptTimestamp = replaceAcceptTimestamp;
     }
 
-    // Builder Class
     public static class Builder {
         private String price;
         private String size;

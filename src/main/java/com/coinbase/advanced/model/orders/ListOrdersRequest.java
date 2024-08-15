@@ -132,7 +132,7 @@ public class ListOrdersRequest implements CoinbaseAdvancedGetRequest {
         }
 
         if (queryString.length() > 0) {
-            queryString.setLength(queryString.length() - 1); // Remove the last '&'
+            queryString.setLength(queryString.length() - 1);
         }
 
         return queryString.toString();

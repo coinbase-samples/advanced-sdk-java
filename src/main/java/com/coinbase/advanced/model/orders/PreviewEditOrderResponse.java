@@ -58,8 +58,6 @@ public class PreviewEditOrderResponse {
     @JsonProperty("request")
     private PreviewEditOrderRequest request;
 
-    // Getters and Setters
-
     public List<EditError> getEditErrors() {
         return editErrors;
     }
@@ -156,7 +154,6 @@ public class PreviewEditOrderResponse {
         this.request = request;
     }
 
-    // Builder Class
     public static class Builder {
         private List<EditError> editErrors;
         private String slippage;

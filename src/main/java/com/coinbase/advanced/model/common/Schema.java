@@ -29,7 +29,6 @@ public class Schema {
         this.type = builder.type;
     }
 
-    // Getters and Setters
     public String getType() {
         return type;
     }
@@ -38,7 +37,6 @@ public class Schema {
         this.type = type;
     }
 
-    // Builder Class
     public static class Builder {
         private String type;
 

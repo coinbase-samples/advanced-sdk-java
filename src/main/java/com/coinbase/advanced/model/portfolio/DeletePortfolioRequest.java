@@ -45,7 +45,6 @@ public class DeletePortfolioRequest implements CoinbaseAdvancedDeleteRequest {
 
     @Override
     public String getQueryString() {
-        // Since this request doesn't require query parameters, return an empty string
         return "";
     }
 
