@@ -16,14 +16,12 @@
 
 package com.coinbase.advanced.model.converts;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.coinbase.advanced.model.common.TradeIncentiveMetadata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CreateConvertQuoteRequest implements CoinbaseAdvancedPostRequest {
-
+public class CreateConvertQuoteRequest {
     @JsonProperty("from_account")
     private String fromAccount;
 
@@ -59,21 +57,6 @@ public class CreateConvertQuoteRequest implements CoinbaseAdvancedPostRequest {
 
     public TradeIncentiveMetadata getTradeIncentiveMetadata() {
         return tradeIncentiveMetadata;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/convert/quote";
-    }
-
-    @Override
-    public String getBody() {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert request to JSON", e);
-        }
     }
 
     public static class Builder {

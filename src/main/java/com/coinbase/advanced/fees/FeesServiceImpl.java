@@ -14,25 +14,30 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.fees;
 
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.fees.*;
+import com.coinbase.core.common.HttpMethod;
+import com.coinbase.core.service.CoinbaseServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.util.List;
 
 
-public class DefaultFeesService implements FeesService {
-
-    private final CoinbaseAdvancedHttpClient httpClient;
-
-    public DefaultFeesService(CoinbaseAdvancedHttpClient httpClient) {
-        this.httpClient = httpClient;
+public class FeesServiceImpl extends CoinbaseServiceImpl implements FeesService {
+    public FeesServiceImpl(CoinbaseAdvancedClient client) {
+        super(client);
     }
 
     @Override
     public GetTransactionsSummaryResponse getTransactionsSummary(GetTransactionsSummaryRequest request) throws CoinbaseAdvancedException {
-        GetTransactionsSummaryResponse resp = httpClient.doGet(request, GetTransactionsSummaryResponse.class);
-        return GetTransactionsSummaryResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.GET,
+                "/brokerage/transaction_summary",
+                request,
+                List.of(200),
+                new TypeReference<GetTransactionsSummaryResponse>() {});
     }
 }

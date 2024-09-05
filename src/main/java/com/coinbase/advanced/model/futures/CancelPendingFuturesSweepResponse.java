@@ -45,11 +45,6 @@ public class CancelPendingFuturesSweepResponse {
             return this;
         }
 
-        public static Builder from(CancelPendingFuturesSweepResponse resp) {
-            return new Builder()
-                    .success(resp.isSuccess());
-        }
-
         public CancelPendingFuturesSweepResponse build() {
             return new CancelPendingFuturesSweepResponse(this);
         }

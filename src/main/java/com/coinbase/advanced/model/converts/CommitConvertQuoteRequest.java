@@ -16,14 +16,12 @@
 
 package com.coinbase.advanced.model.converts;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CommitConvertQuoteRequest implements CoinbaseAdvancedPostRequest {
-
+public class CommitConvertQuoteRequest {
     @JsonProperty("trade_id")
+    @JsonIgnore
     private String tradeId;
 
     @JsonProperty("from_account")
@@ -38,21 +36,6 @@ public class CommitConvertQuoteRequest implements CoinbaseAdvancedPostRequest {
         this.tradeId = builder.tradeId;
         this.fromAccount = builder.fromAccount;
         this.toAccount = builder.toAccount;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/convert/trade/" + tradeId;
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert request to JSON", e);
-        }
     }
 
     public String getTradeId() {

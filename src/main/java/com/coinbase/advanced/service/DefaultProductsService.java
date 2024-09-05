@@ -16,15 +16,15 @@
 
 package com.coinbase.advanced.service;
 
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.products.*;
 
 public class DefaultProductsService implements ProductsService {
 
-    private final CoinbaseAdvancedHttpClient httpClient;
+    private final CoinbaseAdvancedClient httpClient;
 
-    public DefaultProductsService(CoinbaseAdvancedHttpClient httpClient) {
+    public DefaultProductsService(CoinbaseAdvancedClient httpClient) {
         this.httpClient = httpClient;
     }
 

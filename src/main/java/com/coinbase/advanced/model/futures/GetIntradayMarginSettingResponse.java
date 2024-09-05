@@ -45,10 +45,6 @@ public class GetIntradayMarginSettingResponse {
             return this;
         }
 
-        public static Builder from(GetIntradayMarginSettingResponse resp) {
-            return new Builder().setting(resp.getSetting());
-        }
-
         public GetIntradayMarginSettingResponse build() {
             return new GetIntradayMarginSettingResponse(this);
         }

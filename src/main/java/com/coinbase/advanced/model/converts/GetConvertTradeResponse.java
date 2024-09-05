@@ -41,10 +41,6 @@ public class GetConvertTradeResponse {
             return this;
         }
 
-        public static Builder from(GetConvertTradeResponse resp) {
-            return new Builder().convert(resp.getConvert());
-        }
-
         public GetConvertTradeResponse build() {
             return new GetConvertTradeResponse(this);
         }

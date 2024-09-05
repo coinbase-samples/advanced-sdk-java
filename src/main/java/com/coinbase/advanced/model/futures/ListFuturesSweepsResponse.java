@@ -47,10 +47,6 @@ public class ListFuturesSweepsResponse {
             return this;
         }
 
-        public static Builder from(ListFuturesSweepsResponse resp) {
-            return new Builder().sweeps(resp.getSweeps());
-        }
-
         public ListFuturesSweepsResponse build() {
             return new ListFuturesSweepsResponse(this);
         }

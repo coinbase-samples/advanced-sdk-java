@@ -16,10 +16,7 @@
 
 package com.coinbase.advanced.model.futures;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-
-public class GetFuturesPositionRequest implements CoinbaseAdvancedGetRequest {
-
+public class GetFuturesPositionRequest {
     private final String productId;
 
     public GetFuturesPositionRequest(String productId) {
@@ -28,16 +25,6 @@ public class GetFuturesPositionRequest implements CoinbaseAdvancedGetRequest {
 
     public String getProductId() {
         return productId;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/cfm/positions/" + productId;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

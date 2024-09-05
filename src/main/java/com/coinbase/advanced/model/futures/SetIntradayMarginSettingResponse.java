@@ -113,12 +113,6 @@ public class SetIntradayMarginSettingResponse {
             return this;
         }
 
-        public static Builder from(SetIntradayMarginSettingResponse resp) {
-            return new Builder()
-                    .description(resp.getDescription())
-                    .schema(resp.getSchema());
-        }
-
         public SetIntradayMarginSettingResponse build() {
             return new SetIntradayMarginSettingResponse(this);
         }

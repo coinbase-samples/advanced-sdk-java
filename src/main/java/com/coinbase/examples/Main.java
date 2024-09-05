@@ -1,6 +1,6 @@
 package com.coinbase.examples;
 
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
@@ -25,7 +25,7 @@ public class Main {
             String privatePemKey = credentialsMap.get("privatePemKey");
 
             CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privatePemKey);
-            CoinbaseAdvancedHttpClient httpClient = new CoinbaseAdvancedHttpClient(credentials, Constants.BASE_URL);
+            CoinbaseAdvancedClient httpClient = new CoinbaseAdvancedClient(credentials, Constants.BASE_URL);
             PortfoliosService portfolioService = new DefaultPortfoliosService(httpClient);
 
             ListPortfoliosRequest listReq = new ListPortfoliosRequest();

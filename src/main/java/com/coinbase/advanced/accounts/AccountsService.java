@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.http;
+package com.coinbase.advanced.accounts;
 
-public interface CoinbaseAdvancedPutRequest {
-    String getPath();
-    String getBody();
-    String getQueryString();
+import com.coinbase.advanced.errors.CoinbaseAdvancedException;
+import com.coinbase.advanced.model.accounts.*;
+
+public interface AccountsService {
+    ListAccountsResponse listAccounts()  throws CoinbaseAdvancedException;
+    GetAccountResponse getAccount(GetAccountRequest request) throws CoinbaseAdvancedException;
 }

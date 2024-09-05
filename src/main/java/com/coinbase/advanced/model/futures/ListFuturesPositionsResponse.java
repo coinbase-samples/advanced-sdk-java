@@ -45,11 +45,6 @@ public class ListFuturesPositionsResponse {
             return this;
         }
 
-        public static Builder from(ListFuturesPositionsResponse resp) {
-            return new Builder()
-                    .positions(resp.getPositions());
-        }
-
         public ListFuturesPositionsResponse build() {
             return new ListFuturesPositionsResponse(this);
         }

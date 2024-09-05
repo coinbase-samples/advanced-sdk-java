@@ -16,15 +16,15 @@
 
 package com.coinbase.advanced.service;
 
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.perpetuals.*;
 
 public class DefaultPerpetualsService implements PerpetualsService {
 
-    private final CoinbaseAdvancedHttpClient httpClient;
+    private final CoinbaseAdvancedClient httpClient;
 
-    public DefaultPerpetualsService(CoinbaseAdvancedHttpClient httpClient) {
+    public DefaultPerpetualsService(CoinbaseAdvancedClient httpClient) {
         this.httpClient = httpClient;
     }
 

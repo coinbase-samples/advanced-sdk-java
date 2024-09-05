@@ -16,12 +16,12 @@
 
 package com.coinbase.advanced.model.converts;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetConvertTradeRequest implements CoinbaseAdvancedGetRequest {
-
+public class GetConvertTradeRequest {
     @JsonProperty("trade_id")
+    @JsonIgnore
     private String tradeId;
 
     @JsonProperty("from_account")
@@ -48,16 +48,6 @@ public class GetConvertTradeRequest implements CoinbaseAdvancedGetRequest {
 
     public String getToAccount() {
         return toAccount;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/convert/trade/" + tradeId;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

@@ -16,6 +16,8 @@
 
 package com.coinbase.advanced.credentials;
 
+import com.coinbase.advanced.utils.Constants;
+import com.coinbase.core.credentials.CoinbaseCredentials;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.*;
 import com.nimbusds.jwt.*;
@@ -24,6 +26,7 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import java.io.StringReader;
+import java.net.URI;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.Security;
@@ -33,13 +36,26 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CoinbaseCredentials {
+public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
     private final String accessKey;
     private final String privatePemKey;
 
-    public CoinbaseCredentials(String accessKey, String privatePemKey) {
+    public CoinbaseAdvancedCredentials(String accessKey, String privatePemKey) {
         this.accessKey = accessKey;
         this.privatePemKey = privatePemKey.replace("\\n", "\n");
+    }
+
+    @Override
+    public Map<String, String> generateAuthHeaders(String httpMethod, URI uri, String body) {
+        try {
+            String jwt = generateJwt(httpMethod, uri.getHost(), uri.getPath());
+            Map<String, String> headers = new HashMap<>();
+            headers.put(Constants.AUTH_HEADER, String.format("Bearer %s", jwt));
+            headers.put(Constants.USER_AGENT_HEADER, String.format("coinbase-advanced-java/%s", Constants.SDK_VERSION));
+            return headers;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate auth headers", e);
+        }
     }
 
     public String generateJwt(String requestMethod, String host, String path) throws Exception {

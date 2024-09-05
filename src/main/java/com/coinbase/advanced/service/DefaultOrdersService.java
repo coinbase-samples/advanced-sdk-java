@@ -16,15 +16,15 @@
 
 package com.coinbase.advanced.service;
 
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.orders.*;
 
 public class DefaultOrdersService implements OrdersService {
 
-    private final CoinbaseAdvancedHttpClient httpClient;
+    private final CoinbaseAdvancedClient httpClient;
 
-    public DefaultOrdersService(CoinbaseAdvancedHttpClient httpClient) {
+    public DefaultOrdersService(CoinbaseAdvancedClient httpClient) {
         this.httpClient = httpClient;
     }
 

@@ -45,10 +45,6 @@ public class GetFuturesBalanceSummaryResponse {
             return this;
         }
 
-        public static Builder from(GetFuturesBalanceSummaryResponse resp) {
-            return new Builder().balanceSummary(resp.getBalanceSummary());
-        }
-
         public GetFuturesBalanceSummaryResponse build() {
             return new GetFuturesBalanceSummaryResponse(this);
         }

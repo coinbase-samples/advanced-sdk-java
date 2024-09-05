@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.futures;
 
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.futures.*;
 
 public interface FuturesService {
-    GetFuturesBalanceSummaryResponse getFuturesBalanceSummary(GetFuturesBalanceSummaryRequest request) throws CoinbaseAdvancedException;
-    GetIntradayMarginSettingResponse getIntradayMarginSetting(GetIntradayMarginSettingRequest request) throws CoinbaseAdvancedException;
+    GetFuturesBalanceSummaryResponse getFuturesBalanceSummary() throws CoinbaseAdvancedException;
+    GetIntradayMarginSettingResponse getIntradayMarginSetting() throws CoinbaseAdvancedException;
     SetIntradayMarginSettingResponse setIntradayMarginSetting(SetIntradayMarginSettingRequest request) throws CoinbaseAdvancedException;
     GetCurrentMarginWindowResponse getCurrentMarginWindow(GetCurrentMarginWindowRequest request) throws CoinbaseAdvancedException;
-    ListFuturesPositionsResponse listFuturesPositions(ListFuturesPositionsRequest request) throws CoinbaseAdvancedException;
+    ListFuturesPositionsResponse listFuturesPositions() throws CoinbaseAdvancedException;
     GetFuturesPositionResponse getFuturesPosition(GetFuturesPositionRequest request) throws CoinbaseAdvancedException;
     ScheduleFuturesSweepResponse scheduleFuturesSweep(ScheduleFuturesSweepRequest request) throws CoinbaseAdvancedException;
-    ListFuturesSweepsResponse listFuturesSweeps(ListFuturesSweepsRequest request) throws CoinbaseAdvancedException;
-    CancelPendingFuturesSweepResponse cancelPendingFuturesSweep(CancelPendingFuturesSweepRequest request) throws CoinbaseAdvancedException;
+    ListFuturesSweepsResponse listFuturesSweeps() throws CoinbaseAdvancedException;
+    CancelPendingFuturesSweepResponse cancelPendingFuturesSweep() throws CoinbaseAdvancedException;
 }

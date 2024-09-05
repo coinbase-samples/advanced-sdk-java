@@ -17,8 +17,9 @@
 package com.coinbase.advanced.utils;
 
 public class Constants {
-    public static final String BASE_URL = "https://api.coinbase.com";
-    public static final String CREDENTIALS_ENV_VAR = "RAT_CREDENTIALS";
-    public static final String API_BASE_PATH = "/api/v3";
+    public static final String BASE_URL = "https://api.coinbase.com/api/v3";
+    public static final String SDK_VERSION = "0.1.0";
+    public static final String USER_AGENT_HEADER = "User-Agent";
+    public static final String AUTH_HEADER = "Authorization";
 }
 

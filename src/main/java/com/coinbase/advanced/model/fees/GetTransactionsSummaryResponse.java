@@ -228,21 +228,6 @@ public class GetTransactionsSummaryResponse {
             return this;
         }
 
-        public static Builder from(GetTransactionsSummaryResponse resp) {
-            return new Builder()
-                    .totalVolume(resp.getTotalVolume())
-                    .totalFees(resp.getTotalFees())
-                    .feeTier(resp.getFeeTier())
-                    .marginRate(resp.getMarginRate())
-                    .goodsAndServicesTax(resp.getGoodsAndServicesTax())
-                    .advancedTradeOnlyVolume(resp.getAdvancedTradeOnlyVolume())
-                    .advancedTradeOnlyFees(resp.getAdvancedTradeOnlyFees())
-                    .coinbaseProVolume(resp.getCoinbaseProVolume())
-                    .coinbaseProFees(resp.getCoinbaseProFees())
-                    .totalBalance(resp.getTotalBalance())
-                    .hasPromoFee(resp.getHasPromoFee());
-        }
-
         public GetTransactionsSummaryResponse build() {
             return new GetTransactionsSummaryResponse(this);
         }

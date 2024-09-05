@@ -132,13 +132,6 @@ public class GetCurrentMarginWindowResponse {
             return this;
         }
 
-        public static Builder from(GetCurrentMarginWindowResponse resp) {
-            return new Builder()
-                    .marginWindow(resp.getMarginWindow())
-                    .isIntradayMarginKillswitchEnabled(resp.isIntradayMarginKillswitchEnabled())
-                    .isIntradayMarginEnrollmentKillswitchEnabled(resp.isIntradayMarginEnrollmentKillswitchEnabled());
-        }
-
         public GetCurrentMarginWindowResponse build() {
             return new GetCurrentMarginWindowResponse(this);
         }

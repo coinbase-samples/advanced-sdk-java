@@ -45,10 +45,6 @@ public class ScheduleFuturesSweepResponse {
             return this;
         }
 
-        public static Builder from(ScheduleFuturesSweepResponse resp) {
-            return new Builder().success(resp.isSuccess());
-        }
-
         public ScheduleFuturesSweepResponse build() {
             return new ScheduleFuturesSweepResponse(this);
         }

@@ -18,13 +18,13 @@ package com.coinbase.advanced.service;
 
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.portfolios.*;
-import com.coinbase.advanced.client.CoinbaseAdvancedHttpClient;
+import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 
 public class DefaultPortfoliosService implements PortfoliosService {
 
-    private final CoinbaseAdvancedHttpClient httpClient;
+    private final CoinbaseAdvancedClient httpClient;
 
-    public DefaultPortfoliosService(CoinbaseAdvancedHttpClient httpClient) {
+    public DefaultPortfoliosService(CoinbaseAdvancedClient httpClient) {
         this.httpClient = httpClient;
     }
 

@@ -16,11 +16,9 @@
 
 package com.coinbase.advanced.model.futures;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SetIntradayMarginSettingRequest implements CoinbaseAdvancedPostRequest {
-
+public class SetIntradayMarginSettingRequest {
     @JsonProperty("setting")
     private String setting;
 
@@ -36,16 +34,6 @@ public class SetIntradayMarginSettingRequest implements CoinbaseAdvancedPostRequ
 
     public void setSetting(String setting) {
         this.setting = setting;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/cfm/intraday/margin_setting";
-    }
-
-    @Override
-    public String getBody() {
-        return "{\"setting\":\"" + setting + "\"}";
     }
 
     public static class Builder {

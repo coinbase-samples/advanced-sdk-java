@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.model.futures;
+package com.coinbase.advanced.converts;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
+import com.coinbase.advanced.errors.CoinbaseAdvancedException;
+import com.coinbase.advanced.model.converts.*;
 
-public class GetFuturesBalanceSummaryRequest implements CoinbaseAdvancedGetRequest {
+public interface ConvertsService {
+    CreateConvertQuoteResponse createConvertQuote(CreateConvertQuoteRequest request) throws CoinbaseAdvancedException;
+    GetConvertTradeResponse getConvertTrade(GetConvertTradeRequest request) throws CoinbaseAdvancedException;
+    CommitConvertQuoteResponse commitConvertQuote(CommitConvertQuoteRequest request) throws CoinbaseAdvancedException;
 
-    public GetFuturesBalanceSummaryRequest() {}
-
-    @Override
-    public String getPath() {
-        return "/brokerage/cfm/balance_summary";
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
-    }
 }

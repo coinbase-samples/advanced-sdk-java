@@ -16,17 +16,15 @@
 
 package com.coinbase.advanced.model.fees;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetTransactionsSummaryRequest implements CoinbaseAdvancedGetRequest {
-
+public class GetTransactionsSummaryRequest {
     @JsonProperty("product_type")
+    @JsonIgnore
     private String productType;
 
-    @JsonProperty("contract_expiry_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty(required = true, value = "contract_expiry_type")
     private String contractExpiryType;
 
     public GetTransactionsSummaryRequest() {}
@@ -50,21 +48,6 @@ public class GetTransactionsSummaryRequest implements CoinbaseAdvancedGetRequest
 
     public void setContractExpiryType(String contractExpiryType) {
         this.contractExpiryType = contractExpiryType;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/transaction_summary";
-    }
-
-    @Override
-    public String getQueryString() {
-        StringBuilder queryString = new StringBuilder();
-        queryString.append("product_type=").append(productType);
-        if (contractExpiryType != null && !contractExpiryType.isEmpty()) {
-            queryString.append("&contract_expiry_type=").append(contractExpiryType);
-        }
-        return queryString.toString();
     }
 
     public static class Builder {

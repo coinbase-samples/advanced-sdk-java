@@ -16,10 +16,9 @@
 
 package com.coinbase.advanced.model.accounts;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetAccountRequest implements CoinbaseAdvancedGetRequest {
+public class GetAccountRequest {
 
     @JsonProperty("account_uuid")
     private String accountUuid;
@@ -36,15 +35,5 @@ public class GetAccountRequest implements CoinbaseAdvancedGetRequest {
 
     public void setAccountUuid(String accountUuid) {
         this.accountUuid = accountUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/accounts/" + accountUuid;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 }

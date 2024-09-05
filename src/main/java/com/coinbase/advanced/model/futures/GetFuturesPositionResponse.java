@@ -45,10 +45,6 @@ public class GetFuturesPositionResponse {
             return this;
         }
 
-        public static Builder from(GetFuturesPositionResponse resp) {
-            return new Builder().position(resp.getPosition());
-        }
-
         public GetFuturesPositionResponse build() {
             return new GetFuturesPositionResponse(this);
         }

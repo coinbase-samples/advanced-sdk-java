@@ -16,10 +16,9 @@
 
 package com.coinbase.advanced.model.futures;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetCurrentMarginWindowRequest implements CoinbaseAdvancedGetRequest {
+public class GetCurrentMarginWindowRequest {
 
     @JsonProperty("margin_profile_type")
     private String marginProfileType;
@@ -36,16 +35,6 @@ public class GetCurrentMarginWindowRequest implements CoinbaseAdvancedGetRequest
 
     public void setMarginProfileType(String marginProfileType) {
         this.marginProfileType = marginProfileType;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/cfm/intraday/current_margin_window";
-    }
-
-    @Override
-    public String getQueryString() {
-        return "margin_profile_type=" + marginProfileType;
     }
 
     public static class Builder {
