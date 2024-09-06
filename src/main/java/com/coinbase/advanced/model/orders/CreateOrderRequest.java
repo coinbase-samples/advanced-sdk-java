@@ -16,10 +16,7 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class CreateOrderRequest {
 
@@ -54,40 +51,6 @@ public class CreateOrderRequest {
         this.leverage = builder.leverage;
         this.marginType = builder.marginType;
         this.retailPortfolioId = builder.retailPortfolioId;
-    }
-
-    public static class NonRecursiveRequest {
-
-        @JsonProperty("product_id")
-        private String productId;
-
-        @JsonProperty("side")
-        private String side;
-
-        @JsonProperty("client_order_id")
-        private String clientOrderId;
-
-        @JsonProperty("order_configuration")
-        private OrderConfiguration orderConfiguration;
-
-        @JsonProperty("leverage")
-        private String leverage;
-
-        @JsonProperty("margin_type")
-        private String marginType;
-
-        @JsonProperty("retail_portfolio_id")
-        private String retailPortfolioId;
-
-        public NonRecursiveRequest(CreateOrderRequest original) {
-            this.productId = original.productId;
-            this.side = original.side;
-            this.clientOrderId = original.clientOrderId;
-            this.orderConfiguration = original.orderConfiguration;
-            this.leverage = original.leverage;
-            this.marginType = original.marginType;
-            this.retailPortfolioId = original.retailPortfolioId;
-        }
     }
 
     public static class Builder {

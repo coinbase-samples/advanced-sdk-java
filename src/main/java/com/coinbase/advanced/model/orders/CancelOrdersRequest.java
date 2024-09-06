@@ -16,14 +16,11 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 
-public class CancelOrdersRequest implements CoinbaseAdvancedPostRequest {
+public class CancelOrdersRequest {
 
     @JsonProperty("order_ids")
     private List<String> orderIds;
@@ -40,30 +37,6 @@ public class CancelOrdersRequest implements CoinbaseAdvancedPostRequest {
 
     public void setOrderIds(List<String> orderIds) {
         this.orderIds = orderIds;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/orders/batch_cancel";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(new NonRecursiveRequest(this));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize CancelOrdersRequest", e);
-        }
-    }
-
-    public static class NonRecursiveRequest {
-        @JsonProperty("order_ids")
-        private List<String> orderIds;
-
-        public NonRecursiveRequest(CancelOrdersRequest original) {
-            this.orderIds = original.getOrderIds();
-        }
     }
 
     public static class Builder {

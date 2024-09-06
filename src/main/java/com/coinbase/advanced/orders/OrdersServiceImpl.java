@@ -82,16 +82,31 @@ public class OrdersServiceImpl extends CoinbaseServiceImpl implements OrdersServ
 
     @Override
     public CancelOrdersResponse cancelOrders(CancelOrdersRequest request) throws CoinbaseAdvancedException {
-        CancelOrdersResponse resp = httpClient.doPost(request, CancelOrdersResponse.class);
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders/batch_cancel",
+                request,
+                List.of(200),
+                new TypeReference<CancelOrdersResponse>() {});
     }
 
     @Override
     public EditOrderResponse editOrder(EditOrderRequest request) throws CoinbaseAdvancedException {
-        EditOrderResponse resp = httpClient.doPost(request, EditOrderResponse.class);
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders/edit",
+                request,
+                List.of(200),
+                new TypeReference<EditOrderResponse>() {});
     }
 
     @Override
     public PreviewEditOrderResponse previewEditOrder(PreviewEditOrderRequest request) throws CoinbaseAdvancedException {
-        PreviewEditOrderResponse resp = httpClient.doPost(request, PreviewEditOrderResponse.class);
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders/edit_preview",
+                request,
+                List.of(200),
+                new TypeReference<PreviewEditOrderResponse>() {});
     }
 }

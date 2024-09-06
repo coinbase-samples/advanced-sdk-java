@@ -16,12 +16,9 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class PreviewEditOrderRequest implements CoinbaseAdvancedPostRequest {
+public class PreviewEditOrderRequest {
 
     @JsonProperty("order_id")
     private String orderId;
@@ -38,38 +35,6 @@ public class PreviewEditOrderRequest implements CoinbaseAdvancedPostRequest {
         this.orderId = builder.orderId;
         this.price = builder.price;
         this.size = builder.size;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/orders/edit_preview";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(new NonRecursiveRequest(this));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize PreviewEditOrderRequest", e);
-        }
-    }
-
-    public static class NonRecursiveRequest {
-        @JsonProperty("order_id")
-        private String orderId;
-
-        @JsonProperty("price")
-        private String price;
-
-        @JsonProperty("size")
-        private String size;
-
-        public NonRecursiveRequest(PreviewEditOrderRequest original) {
-            this.orderId = original.orderId;
-            this.price = original.price;
-            this.size = original.size;
-        }
     }
 
     public static class Builder {

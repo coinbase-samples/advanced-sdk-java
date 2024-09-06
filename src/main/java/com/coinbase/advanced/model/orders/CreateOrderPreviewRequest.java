@@ -67,51 +67,6 @@ public class CreateOrderPreviewRequest {
         this.retailPortfolioId = builder.retailPortfolioId;
     }
 
-    private static class NonRecursiveRequest {
-        @JsonProperty("product_id")
-        private final String productId;
-
-        @JsonProperty("side")
-        private final String side;
-
-        @JsonProperty("order_configuration")
-        private final OrderConfiguration orderConfiguration;
-
-        @JsonProperty("commission_rate")
-        private final Rate commissionRate;
-
-        @JsonProperty("is_max")
-        private final Boolean isMax;
-
-        @JsonProperty("tradable_balance")
-        private final String tradableBalance;
-
-        @JsonProperty("skip_fcm_risk_check")
-        private final Boolean skipFcmRiskCheck;
-
-        @JsonProperty("leverage")
-        private final String leverage;
-
-        @JsonProperty("margin_type")
-        private final String marginType;
-
-        @JsonProperty("retail_portfolio_id")
-        private final String retailPortfolioId;
-
-        public NonRecursiveRequest(CreateOrderPreviewRequest original) {
-            this.productId = original.productId;
-            this.side = original.side;
-            this.orderConfiguration = original.orderConfiguration;
-            this.commissionRate = original.commissionRate;
-            this.isMax = original.isMax;
-            this.tradableBalance = original.tradableBalance;
-            this.skipFcmRiskCheck = original.skipFcmRiskCheck;
-            this.leverage = original.leverage;
-            this.marginType = original.marginType;
-            this.retailPortfolioId = original.retailPortfolioId;
-        }
-    }
-
     public static class Builder {
         private String productId;
         private String side;
