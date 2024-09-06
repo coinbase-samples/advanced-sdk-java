@@ -1,6 +1,7 @@
 package com.coinbase.examples;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
+import com.coinbase.advanced.credentials.CoinbaseAdvancedCredentials;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
@@ -14,18 +15,15 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         try {
-            String credsStringBlob = System.getenv(Constants.CREDENTIALS_ENV_VAR);
+            String credsStringBlob = System.getenv("ADVANCED_TRADE_CREDENTIALS");
             if (credsStringBlob == null) {
-                throw new RuntimeException("Environment variable " + Constants.CREDENTIALS_ENV_VAR + " is not set or accessible.");
+                throw new RuntimeException("ADVANCED_TRADE_CREDENTIALS environment variable is not set");
             }
 
             ObjectMapper mapper = new ObjectMapper();
-            Map<String, String> credentialsMap = mapper.readValue(credsStringBlob, Map.class);
-            String accessKey = credentialsMap.get("accessKey");
-            String privatePemKey = credentialsMap.get("privatePemKey");
 
-            CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privatePemKey);
-            CoinbaseAdvancedClient httpClient = new CoinbaseAdvancedClient(credentials, Constants.BASE_URL);
+            CoinbaseAdvancedCredentials credentials = new CoinbaseAdvancedCredentials(credsStringBlob);
+            CoinbaseAdvancedClient httpClient = new CoinbaseAdvancedClient(credentials);
             PortfoliosService portfolioService = new PortfoliosServiceImpl(httpClient);
 
             ListPortfoliosRequest listReq = new ListPortfoliosRequest();

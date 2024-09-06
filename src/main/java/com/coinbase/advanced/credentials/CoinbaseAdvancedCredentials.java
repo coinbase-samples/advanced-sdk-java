@@ -18,6 +18,8 @@ package com.coinbase.advanced.credentials;
 
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.core.credentials.CoinbaseCredentials;
+import com.coinbase.core.errors.CoinbaseClientException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.*;
 import com.nimbusds.jwt.*;
@@ -37,12 +39,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
-    private final String accessKey;
-    private final String privatePemKey;
+    private final String apiKeyName;
+    private final String privateKey;
 
-    public CoinbaseAdvancedCredentials(String accessKey, String privatePemKey) {
-        this.accessKey = accessKey;
-        this.privatePemKey = privatePemKey.replace("\\n", "\n");
+    public CoinbaseAdvancedCredentials(String apiKeyName, String privateKey) {
+        this.apiKeyName = apiKeyName;
+        this.privateKey = privateKey;
+    }
+
+    public CoinbaseAdvancedCredentials(String credentialsJson) throws CoinbaseClientException {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            CoinbaseAdvancedCredentials credentials = mapper.readValue(credentialsJson, CoinbaseAdvancedCredentials.class);
+            this.apiKeyName = credentials.getApiKeyName();
+            this.privateKey = credentials.getPrivateKey().replace("\\n", "\n");
+        } catch (Throwable e) {
+            throw new CoinbaseClientException("Failed to parse credentials", e);
+        }
+    }
+
+    public String getApiKeyName() {
+        return apiKeyName;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
     }
 
     @Override
@@ -64,7 +85,7 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
         Map<String, Object> header = new HashMap<>();
         header.put("alg", "ES256");
         header.put("typ", "JWT");
-        header.put("kid", accessKey);
+        header.put("kid", apiKeyName);
         header.put("nonce", String.valueOf(Instant.now().getEpochSecond()));
 
         String uri = requestMethod + " " + host + path;
@@ -73,10 +94,10 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
         data.put("iss", "cdp");
         data.put("nbf", Instant.now().getEpochSecond());
         data.put("exp", Instant.now().getEpochSecond() + 120);
-        data.put("sub", accessKey);
+        data.put("sub", apiKeyName);
         data.put("uri", uri);
 
-        PEMParser pemParser = new PEMParser(new StringReader(privatePemKey));
+        PEMParser pemParser = new PEMParser(new StringReader(privateKey));
         JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
         Object object = pemParser.readObject();
         PrivateKey privateKey;
