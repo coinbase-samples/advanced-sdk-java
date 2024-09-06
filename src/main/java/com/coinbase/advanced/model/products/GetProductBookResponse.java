@@ -3,7 +3,6 @@ package com.coinbase.advanced.model.products;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetProductBookResponse {
-
     @JsonProperty("pricebook")
     private PriceBook priceBook;
 

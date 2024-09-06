@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.publics;
 
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
-import com.coinbase.advanced.model.markets.GetServerTimeResponse;
+import com.coinbase.advanced.model.publics.*;
 import com.coinbase.advanced.model.products.*;
 
-public interface MarketsService {
-    GetProductResponse getPublicProduct(String productId) throws CoinbaseAdvancedException;
-    ListProductsResponse listPublicProducts() throws CoinbaseAdvancedException;
-    GetProductBookResponse getPublicProductBook(String productId, String limit) throws CoinbaseAdvancedException;
-    GetProductCandlesResponse getPublicProductCandles(String productId, String granularity, String start, String end) throws CoinbaseAdvancedException;
-    GetMarketTradesResponse getPublicMarketTrades(String productId, String limit, String start, String end) throws CoinbaseAdvancedException;
+public interface PublicService {
+    GetProductResponse getPublicProduct(GetPublicProductRequest request) throws CoinbaseAdvancedException;
+    ListProductsResponse listPublicProducts(ListPublicProductsRequest request) throws CoinbaseAdvancedException;
+    GetProductBookResponse getPublicProductBook(GetPublicProductBookRequest request) throws CoinbaseAdvancedException;
+    GetProductCandlesResponse getPublicProductCandles(GetPublicProductCandlesRequest request) throws CoinbaseAdvancedException;
+    GetMarketTradesResponse getPublicMarketTrades(GetPublicMarketTradesRequest request) throws CoinbaseAdvancedException;
     GetServerTimeResponse getServerTime() throws CoinbaseAdvancedException;
-
 }

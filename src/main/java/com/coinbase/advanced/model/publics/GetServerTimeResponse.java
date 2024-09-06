@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.model.markets;
+package com.coinbase.advanced.model.publics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
