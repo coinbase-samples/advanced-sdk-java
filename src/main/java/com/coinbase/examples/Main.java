@@ -4,7 +4,7 @@ import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
-import com.coinbase.advanced.portfolios.DefaultPortfoliosService;
+import com.coinbase.advanced.portfolios.PortfoliosServiceImpl;
 import com.coinbase.advanced.portfolios.PortfoliosService;
 import com.coinbase.advanced.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +26,7 @@ public class Main {
 
             CoinbaseCredentials credentials = new CoinbaseCredentials(accessKey, privatePemKey);
             CoinbaseAdvancedClient httpClient = new CoinbaseAdvancedClient(credentials, Constants.BASE_URL);
-            PortfoliosService portfolioService = new DefaultPortfoliosService(httpClient);
+            PortfoliosService portfolioService = new PortfoliosServiceImpl(httpClient);
 
             ListPortfoliosRequest listReq = new ListPortfoliosRequest();
 

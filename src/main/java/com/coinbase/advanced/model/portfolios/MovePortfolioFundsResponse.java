@@ -63,12 +63,6 @@ public class MovePortfolioFundsResponse {
             return this;
         }
 
-        public static Builder from(MovePortfolioFundsResponse resp) {
-            return new Builder()
-                    .sourcePortfolioUuid(resp.getSourcePortfolioUuid())
-                    .targetPortfolioUuid(resp.getTargetPortfolioUuid());
-        }
-
         public MovePortfolioFundsResponse build() {
             return new MovePortfolioFundsResponse(this);
         }

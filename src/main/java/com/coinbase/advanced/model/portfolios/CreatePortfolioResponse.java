@@ -45,10 +45,6 @@ public class CreatePortfolioResponse {
             return this;
         }
 
-        public static Builder from(CreatePortfolioResponse resp) {
-            return new Builder().portfolio(resp.getPortfolio());
-        }
-
         public CreatePortfolioResponse build() {
             return new CreatePortfolioResponse(this);
         }

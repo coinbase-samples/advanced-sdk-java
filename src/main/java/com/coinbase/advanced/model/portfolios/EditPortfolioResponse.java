@@ -45,10 +45,6 @@ public class EditPortfolioResponse {
             return this;
         }
 
-        public static Builder from(EditPortfolioResponse resp) {
-            return new Builder().portfolio(resp.getPortfolio());
-        }
-
         public EditPortfolioResponse build() {
             return new EditPortfolioResponse(this);
         }

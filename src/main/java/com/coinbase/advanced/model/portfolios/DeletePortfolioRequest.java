@@ -16,11 +16,9 @@
 
 package com.coinbase.advanced.model.portfolios;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedDeleteRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DeletePortfolioRequest implements CoinbaseAdvancedDeleteRequest {
-
+public class DeletePortfolioRequest {
     @JsonProperty("portfolio_uuid")
     private String portfolioUuid;
 
@@ -36,16 +34,6 @@ public class DeletePortfolioRequest implements CoinbaseAdvancedDeleteRequest {
 
     public void setPortfolioUuid(String portfolioUuid) {
         this.portfolioUuid = portfolioUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/portfolios/" + portfolioUuid;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

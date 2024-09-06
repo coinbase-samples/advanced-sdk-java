@@ -1,13 +1,12 @@
 package com.coinbase.advanced.model.portfolios;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPutRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class EditPortfolioRequest implements CoinbaseAdvancedPutRequest {
+public class EditPortfolioRequest {
 
     @JsonProperty("portfolio_uuid")
+    @JsonIgnore
     private String portfolioUuid;
 
     @JsonProperty("name")
@@ -34,35 +33,6 @@ public class EditPortfolioRequest implements CoinbaseAdvancedPutRequest {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/portfolios/" + portfolioUuid;
-    }
-
-    @Override
-    public String getBody() {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(new BodyContent(name));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize EditPortfolioRequest", e);
-        }
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
-    }
-
-    private static class BodyContent {
-        @JsonProperty("name")
-        private String name;
-
-        public BodyContent(String name) {
-            this.name = name;
-        }
     }
 
     public static class Builder {

@@ -16,14 +16,11 @@
 
 package com.coinbase.advanced.model.portfolios;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetPortfolioBreakdownRequest implements CoinbaseAdvancedGetRequest {
+public class GetPortfolioBreakdownRequest {
 
     @JsonProperty("portfolio_uuid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String portfolioUuid;
 
     public GetPortfolioBreakdownRequest() {}
@@ -38,15 +35,5 @@ public class GetPortfolioBreakdownRequest implements CoinbaseAdvancedGetRequest 
 
     public void setPortfolioUuid(String portfolioUuid) {
         this.portfolioUuid = portfolioUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/portfolios/" + portfolioUuid;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 }

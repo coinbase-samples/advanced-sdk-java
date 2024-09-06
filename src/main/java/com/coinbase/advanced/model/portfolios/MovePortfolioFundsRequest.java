@@ -16,14 +16,10 @@
 
 package com.coinbase.advanced.model.portfolios;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.coinbase.advanced.model.common.Amount;
 
-public class MovePortfolioFundsRequest implements CoinbaseAdvancedPostRequest {
-
+public class MovePortfolioFundsRequest {
     @JsonProperty("funds")
     private Amount funds;
 
@@ -63,21 +59,6 @@ public class MovePortfolioFundsRequest implements CoinbaseAdvancedPostRequest {
 
     public void setTargetPortfolioUuid(String targetPortfolioUuid) {
         this.targetPortfolioUuid = targetPortfolioUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/portfolios/move_funds";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize MovePortfolioFundsRequest", e);
-        }
     }
 
     public static class Builder {

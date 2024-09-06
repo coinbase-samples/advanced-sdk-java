@@ -16,14 +16,11 @@
 
 package com.coinbase.advanced.model.portfolios;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ListPortfoliosRequest implements CoinbaseAdvancedGetRequest {
+public class ListPortfoliosRequest {
 
     @JsonProperty("portfolio_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String portfolioType;
 
     public ListPortfoliosRequest() {}
@@ -38,19 +35,6 @@ public class ListPortfoliosRequest implements CoinbaseAdvancedGetRequest {
 
     public void setPortfolioType(String portfolioType) {
         this.portfolioType = portfolioType;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/portfolios";
-    }
-
-    @Override
-    public String getQueryString() {
-        if (portfolioType != null) {
-            return "portfolio_type=" + portfolioType;
-        }
-        return "";
     }
 
     public static class Builder {
