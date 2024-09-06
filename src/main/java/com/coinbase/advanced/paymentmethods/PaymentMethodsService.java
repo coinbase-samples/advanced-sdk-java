@@ -20,6 +20,6 @@ import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.paymentmethods.*;
 
 public interface PaymentMethodsService {
-    ListPaymentMethodsResponse listPaymentMethods(ListPaymentMethodsRequest request) throws CoinbaseAdvancedException;
+    ListPaymentMethodsResponse listPaymentMethods() throws CoinbaseAdvancedException;
     GetPaymentMethodResponse getPaymentMethod(GetPaymentMethodRequest request) throws CoinbaseAdvancedException;
 }

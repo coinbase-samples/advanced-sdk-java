@@ -16,9 +16,7 @@
 
 package com.coinbase.advanced.model.perpetuals;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-
-public class GetPortfoliosBalancesRequest implements CoinbaseAdvancedGetRequest {
+public class GetPortfoliosBalancesRequest {
 
     private String portfolioUuid;
 
@@ -34,16 +32,6 @@ public class GetPortfoliosBalancesRequest implements CoinbaseAdvancedGetRequest 
 
     public void setPortfolioUuid(String portfolioUuid) {
         this.portfolioUuid = portfolioUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/intx/balances/" + portfolioUuid;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

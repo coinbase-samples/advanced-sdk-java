@@ -45,11 +45,6 @@ public class GetPerpetualsPositionResponse {
             return this;
         }
 
-        public static Builder from(GetPerpetualsPositionResponse resp) {
-            return new Builder()
-                    .position(resp.getPosition());
-        }
-
         public GetPerpetualsPositionResponse build() {
             return new GetPerpetualsPositionResponse(this);
         }

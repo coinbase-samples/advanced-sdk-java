@@ -16,10 +16,9 @@
 
 package com.coinbase.advanced.model.paymentmethods;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetPaymentMethodRequest implements CoinbaseAdvancedGetRequest {
+public class GetPaymentMethodRequest {
 
     @JsonProperty("payment_method_id")
     private String paymentMethodId;
@@ -36,16 +35,6 @@ public class GetPaymentMethodRequest implements CoinbaseAdvancedGetRequest {
 
     public void setPaymentMethodId(String paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
-    }
-
-    @Override
-    public String getPath() {
-        return String.format("/brokerage/payment_methods/%s", paymentMethodId);
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

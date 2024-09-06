@@ -45,11 +45,6 @@ public class GetPerpetualsPortfolioSummaryResponse {
             return this;
         }
 
-        public static Builder from(GetPerpetualsPortfolioSummaryResponse resp) {
-            return new Builder()
-                    .portfolios(resp.getPortfolios());
-        }
-
         public GetPerpetualsPortfolioSummaryResponse build() {
             return new GetPerpetualsPortfolioSummaryResponse(this);
         }

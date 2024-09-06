@@ -50,9 +50,5 @@ public class ListPaymentMethodsResponse {
             return new ListPaymentMethodsResponse(this);
         }
 
-        public static Builder from(ListPaymentMethodsResponse resp) {
-            return new Builder()
-                    .paymentMethods(resp.getPaymentMethods());
-        }
     }
 }

@@ -70,12 +70,6 @@ public class AllocatePortfolioResponse {
             return this;
         }
 
-        public static Builder from(AllocatePortfolioResponse resp) {
-            return new Builder()
-                    .description(resp.getDescription())
-                    .schema(resp.getSchema());
-        }
-
         public AllocatePortfolioResponse build() {
             return new AllocatePortfolioResponse(this);
         }

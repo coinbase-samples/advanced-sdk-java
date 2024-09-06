@@ -16,9 +16,7 @@
 
 package com.coinbase.advanced.model.perpetuals;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-
-public class GetPerpetualsPositionRequest implements CoinbaseAdvancedGetRequest {
+public class GetPerpetualsPositionRequest {
 
     private String portfolioUuid;
     private String symbol;
@@ -44,16 +42,6 @@ public class GetPerpetualsPositionRequest implements CoinbaseAdvancedGetRequest 
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/intx/positions/" + portfolioUuid + "/" + symbol;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

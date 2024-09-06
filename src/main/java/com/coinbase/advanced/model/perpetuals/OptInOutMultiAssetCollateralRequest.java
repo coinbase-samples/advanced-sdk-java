@@ -16,10 +16,9 @@
 
 package com.coinbase.advanced.model.perpetuals;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OptInOutMultiAssetCollateralRequest implements CoinbaseAdvancedPostRequest {
+public class OptInOutMultiAssetCollateralRequest {
 
     @JsonProperty("portfolio_uuid")
     private String portfolioUuid;
@@ -48,16 +47,6 @@ public class OptInOutMultiAssetCollateralRequest implements CoinbaseAdvancedPost
 
     public void setMultiAssetCollateralEnabled(boolean multiAssetCollateralEnabled) {
         this.multiAssetCollateralEnabled = multiAssetCollateralEnabled;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/intx/multi_asset_collateral";
-    }
-
-    @Override
-    public String getBody() {
-        return "{\"portfolio_uuid\":\"" + portfolioUuid + "\",\"multi_asset_collateral_enabled\":" + multiAssetCollateralEnabled + "}";
     }
 
     public static class Builder {

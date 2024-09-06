@@ -16,12 +16,9 @@
 
 package com.coinbase.advanced.model.perpetuals;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AllocatePortfolioRequest implements CoinbaseAdvancedPostRequest {
+public class AllocatePortfolioRequest {
 
     @JsonProperty("portfolio_uuid")
     private String portfolioUuid;
@@ -42,21 +39,6 @@ public class AllocatePortfolioRequest implements CoinbaseAdvancedPostRequest {
         this.symbol = builder.symbol;
         this.amount = builder.amount;
         this.currency = builder.currency;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/intx/allocate";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert request to JSON", e);
-        }
     }
 
     public String getPortfolioUuid() {

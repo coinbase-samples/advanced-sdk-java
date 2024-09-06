@@ -19,27 +19,35 @@ package com.coinbase.advanced.paymentmethods;
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.paymentmethods.*;
+import com.coinbase.core.common.HttpMethod;
+import com.coinbase.core.service.CoinbaseServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.util.List;
 
 
-public class DefaultPaymentMethodsService implements PaymentMethodsService {
-
-    private final CoinbaseAdvancedClient httpClient;
-
-    public DefaultPaymentMethodsService(CoinbaseAdvancedClient httpClient) {
-        this.httpClient = httpClient;
+public class PaymentMethodsServiceImpl extends CoinbaseServiceImpl implements PaymentMethodsService {
+    public PaymentMethodsServiceImpl(CoinbaseAdvancedClient client) {
+        super(client);
     }
 
     @Override
-    public ListPaymentMethodsResponse listPaymentMethods(ListPaymentMethodsRequest request) throws CoinbaseAdvancedException {
-        ListPaymentMethodsResponse resp = httpClient.doGet(request, ListPaymentMethodsResponse.class);
-        return ListPaymentMethodsResponse.Builder.from(resp)
-                .build();
+    public ListPaymentMethodsResponse listPaymentMethods() throws CoinbaseAdvancedException {
+        return this.request(
+                HttpMethod.GET,
+                "/brokerage/payment_methods",
+                null,
+                List.of(200),
+                new TypeReference<ListPaymentMethodsResponse>() {});
     }
 
     @Override
     public GetPaymentMethodResponse getPaymentMethod(GetPaymentMethodRequest request) throws CoinbaseAdvancedException {
-        GetPaymentMethodResponse resp = httpClient.doGet(request, GetPaymentMethodResponse.class);
-        return GetPaymentMethodResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.GET,
+                String.format("/brokerage/payment_methods/%s", request.getPaymentMethodId()),
+                null,
+                List.of(200),
+                new TypeReference<GetPaymentMethodResponse>() {});
     }
 }

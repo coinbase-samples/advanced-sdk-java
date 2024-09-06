@@ -16,7 +16,6 @@
 
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.model.common.PaginationParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -96,11 +95,6 @@ public class ListProductsRequest {
 
     public void setOffset(Integer offset) {
         this.offset = offset;
-    }
-
-    @Override
-    public String getPath() {
-        return ;
     }
 
     public static class Builder {

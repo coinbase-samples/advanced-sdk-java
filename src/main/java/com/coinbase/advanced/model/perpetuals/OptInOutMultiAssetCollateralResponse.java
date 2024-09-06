@@ -45,10 +45,6 @@ public class OptInOutMultiAssetCollateralResponse {
             return this;
         }
 
-        public static Builder from(OptInOutMultiAssetCollateralResponse resp) {
-            return new Builder().multiAssetCollateralEnabled(resp.isMultiAssetCollateralEnabled());
-        }
-
         public OptInOutMultiAssetCollateralResponse build() {
             return new OptInOutMultiAssetCollateralResponse(this);
         }

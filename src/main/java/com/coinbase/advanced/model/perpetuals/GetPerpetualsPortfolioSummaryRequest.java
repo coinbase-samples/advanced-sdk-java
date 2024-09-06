@@ -16,10 +16,9 @@
 
 package com.coinbase.advanced.model.perpetuals;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetPerpetualsPortfolioSummaryRequest implements CoinbaseAdvancedGetRequest {
+public class GetPerpetualsPortfolioSummaryRequest {
 
     @JsonProperty("portfolio_uuid")
     private String portfolioUuid;
@@ -36,16 +35,6 @@ public class GetPerpetualsPortfolioSummaryRequest implements CoinbaseAdvancedGet
 
     public void setPortfolioUuid(String portfolioUuid) {
         this.portfolioUuid = portfolioUuid;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/intx/portfolio/" + portfolioUuid;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

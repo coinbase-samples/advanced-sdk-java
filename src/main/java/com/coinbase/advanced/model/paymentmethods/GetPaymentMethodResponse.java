@@ -48,10 +48,5 @@ public class GetPaymentMethodResponse {
         public GetPaymentMethodResponse build() {
             return new GetPaymentMethodResponse(this);
         }
-
-        public static Builder from(GetPaymentMethodResponse resp) {
-            return new Builder()
-                    .paymentMethod(resp.getPaymentMethod());
-        }
     }
 }

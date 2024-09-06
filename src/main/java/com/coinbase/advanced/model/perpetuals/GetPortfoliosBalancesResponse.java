@@ -46,11 +46,6 @@ public class GetPortfoliosBalancesResponse {
             return this;
         }
 
-        public static Builder from(GetPortfoliosBalancesResponse resp) {
-            return new Builder()
-                    .portfolioBalances(resp.getPortfolioBalances());
-        }
-
         public GetPortfoliosBalancesResponse build() {
             return new GetPortfoliosBalancesResponse(this);
         }
