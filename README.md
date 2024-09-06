@@ -20,25 +20,42 @@ The JSON format expected for `Advanced_CREDENTIALS` is:
 
 ```
 {
-  "accessKey": "",
-  "privatePemKey": "",
+  "apiKeyName": "",
+  "privateKey": "",
 }
 ```
 
 Coinbase Advanced API credentials can be created in the Advanced web console under API.
 
-Once the client is initialized, make the desired call. For example, to [list portfolios](https://docs.cdp.coinbase.com/advanced-trade/reference/retailbrokerageapi_getportfolios), pass in the request object, check for an error, and if nil, process the response.
+An example of instantiating the credentials and using the PortfoliosService is shown below:
 
 ```java
-ListPortfoliosRequest listReq = new ListPortfoliosRequest();
-ListPortfoliosResponse listResponse = client.listPortfolios(listReq);
+public class Main {
+    public static void main(String[] args) {
+        String credsStringBlob = System.getenv("ADVANCED_TRADE_CREDENTIALS");
+        ObjectMapper mapper = new ObjectMapper();
 
-String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(listResponse);
-System.out.println("List Portfolios Response:");
-System.out.println(prettyJson);
+        try {
+            CoinbaseAdvancedCredentials credentials = new CoinbaseAdvancedCredentials(credsStringBlob);
+            CoinbaseAdvancedClient client = new CoinbaseAdvancedClient(credentials);
+
+            PortfoliosService portfoliosService = AdvancedServiceFactory.createPortfoliosService(client);
+            GetPortfolioByIdResponse portfolioResponse = portfoliosService.getPortfolioById(
+                    new GetPortfolioByIdRequest.Builder()
+                            .portfolioId(portfolioId)
+                            .build());
+
+            System.out.println(mapper.writeValueAsString(portfolioResponse));
+        } catch (Exception e) {
+            e.printStackTrace(e);
+        }
+    }
+}
 ```
 
-To make API calls, create a request object using the builder pattern, call the desired method on the client with the request object and then process and print the response. See an example of this inside of the [main.java.com.coinbase.examples package](https://github.com/coinbase-samples/advanced-sdk-java/blob/main/src/main/java/com/coinbase/examples/Main.java).
+To see a full working example, see the [`Main`](src/main/java/com/coinbase/examples/Main.java) class under the com.coinbase.examples package.
+
+**Warning** This does place a very small trade for a small amount of ADA. Please ensure that you have the necessary funds in your account before running this code.
 
 ## Binaries
 
