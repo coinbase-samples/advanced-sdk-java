@@ -17,17 +17,16 @@
 package com.coinbase.advanced.client;
 
 import com.coinbase.advanced.credentials.CoinbaseAdvancedCredentials;
+import com.coinbase.advanced.errors.CoinbaseAdvancedErrorMessage;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
-import com.coinbase.advanced.http.*;
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.core.client.CoinbaseNetHttpClient;
-import com.coinbase.core.credentials.CoinbaseCredentials;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.coinbase.core.errors.CoinbaseClientException;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class CoinbaseAdvancedClient extends CoinbaseNetHttpClient {
     public CoinbaseAdvancedClient(CoinbaseAdvancedCredentials credentials, String baseUrl) {
@@ -39,10 +38,33 @@ public class CoinbaseAdvancedClient extends CoinbaseNetHttpClient {
     }
 
     public CoinbaseAdvancedClient(CoinbaseAdvancedCredentials credentials) {
-        super(credentials, Constants.CB_PRIME_BASE_URL);
+        super(credentials, Constants.BASE_URL);
     }
 
     public CoinbaseAdvancedClient(CoinbaseAdvancedCredentials credentials, HttpClient client) {
-        super(credentials, Constants.CB_PRIME_BASE_URL, client);
+        super(credentials, Constants.BASE_URL, client);
     }
+
+    @Override
+    protected <T> T handleResponse(
+            HttpResponse<String> response,
+            List<Integer> expectedStatusCodes,
+            TypeReference<T> responseClass) throws CoinbaseAdvancedException {
+        if (!expectedStatusCodes.contains(response.statusCode())) {
+            try {
+                CoinbaseAdvancedErrorMessage errorMessage = this.mapper.readValue(response.body(), CoinbaseAdvancedErrorMessage.class);
+                errorMessage.setStatusCode(response.statusCode());
+                throw errorMessage.createCoinbaseException();
+            } catch (Exception e) {
+                throw new CoinbaseAdvancedException(response.statusCode(), response.body());
+            }
+        }
+
+        try {
+            return this.mapper.readValue(response.body(), responseClass);
+        } catch (Throwable e) {
+            throw new CoinbaseClientException("Failed to deserialize class", e);
+        }
+    }
+
 }

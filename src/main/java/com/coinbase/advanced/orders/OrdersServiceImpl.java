@@ -109,4 +109,14 @@ public class OrdersServiceImpl extends CoinbaseServiceImpl implements OrdersServ
                 List.of(200),
                 new TypeReference<PreviewEditOrderResponse>() {});
     }
+
+    @Override
+    public ClosePositionResponse closePosition(ClosePositionRequest request) throws CoinbaseAdvancedException {
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders/close_position",
+                request,
+                List.of(200),
+                new TypeReference<ClosePositionResponse>() {});
+    }
 }

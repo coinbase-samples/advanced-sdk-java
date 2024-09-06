@@ -28,4 +28,5 @@ public interface OrdersService {
     CancelOrdersResponse cancelOrders(CancelOrdersRequest request) throws CoinbaseAdvancedException;
     EditOrderResponse editOrder(EditOrderRequest request) throws CoinbaseAdvancedException;
     PreviewEditOrderResponse previewEditOrder(PreviewEditOrderRequest request) throws CoinbaseAdvancedException;
+    ClosePositionResponse closePosition(ClosePositionRequest request) throws CoinbaseAdvancedException;
 }

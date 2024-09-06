@@ -16,7 +16,6 @@
 
 package com.coinbase.advanced.model.futures;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScheduleFuturesSweepRequest {

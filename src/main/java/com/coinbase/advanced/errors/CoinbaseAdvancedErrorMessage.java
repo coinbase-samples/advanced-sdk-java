@@ -16,7 +16,11 @@
 
 package com.coinbase.advanced.errors;
 
-public class CoinbaseAdvancedErrorMessage {
+import com.coinbase.core.errors.CoinbaseErrorMessage;
+import com.coinbase.core.errors.CoinbaseException;
+
+public class CoinbaseAdvancedErrorMessage implements CoinbaseErrorMessage {
+    private int statusCode;
     private String message;
 
     public CoinbaseAdvancedErrorMessage() {
@@ -32,6 +36,19 @@ public class CoinbaseAdvancedErrorMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    @Override
+    public CoinbaseException createCoinbaseException() {
+       return new CoinbaseAdvancedException(this.statusCode, this.message);
     }
 
     public static class Builder {

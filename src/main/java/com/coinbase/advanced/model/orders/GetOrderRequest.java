@@ -33,16 +33,6 @@ public class GetOrderRequest {
         this.orderId = orderId;
     }
 
-    @Override
-    public String getPath() {
-        return ;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
-    }
-
     public static class Builder {
         private String orderId;
 

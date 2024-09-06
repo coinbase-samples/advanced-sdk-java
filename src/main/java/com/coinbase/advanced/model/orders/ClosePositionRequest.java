@@ -16,12 +16,9 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ClosePositionRequest implements CoinbaseAdvancedPostRequest {
+public class ClosePositionRequest {
 
     @JsonProperty("client_order_id")
     private String clientOrderId;
@@ -62,21 +59,6 @@ public class ClosePositionRequest implements CoinbaseAdvancedPostRequest {
 
     public void setSize(String size) {
         this.size = size;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/orders/close_position";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize ClosePositionRequest", e);
-        }
     }
 
     public static class Builder {

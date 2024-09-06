@@ -19,6 +19,7 @@ package com.coinbase.advanced.credentials;
 import com.coinbase.advanced.utils.Constants;
 import com.coinbase.core.credentials.CoinbaseCredentials;
 import com.coinbase.core.errors.CoinbaseClientException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.*;
@@ -39,13 +40,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
-    private final String apiKeyName;
-    private final String privateKey;
+    @JsonProperty(required = true)
+    private String apiKeyName;
+    @JsonProperty(required = true)
+    private String privateKey;
 
     public CoinbaseAdvancedCredentials(String apiKeyName, String privateKey) {
         this.apiKeyName = apiKeyName;
         this.privateKey = privateKey;
     }
+
+    public CoinbaseAdvancedCredentials() {}
 
     public CoinbaseAdvancedCredentials(String credentialsJson) throws CoinbaseClientException {
         ObjectMapper mapper = new ObjectMapper();
