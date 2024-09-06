@@ -16,17 +16,14 @@
 
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetProductBookRequest implements CoinbaseAdvancedGetRequest {
+public class GetProductBookRequest {
 
     @JsonProperty("product_id")
     private String productId;
 
     @JsonProperty("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String limit;
 
     public GetProductBookRequest() {}
@@ -50,21 +47,6 @@ public class GetProductBookRequest implements CoinbaseAdvancedGetRequest {
 
     public void setLimit(String limit) {
         this.limit = limit;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/product_book";
-    }
-
-    @Override
-    public String getQueryString() {
-        StringBuilder queryString = new StringBuilder();
-        queryString.append("product_id=").append(productId);
-        if (limit != null && !limit.isEmpty()) {
-            queryString.append("&limit=").append(limit);
-        }
-        return queryString.toString();
     }
 
     public static class Builder {

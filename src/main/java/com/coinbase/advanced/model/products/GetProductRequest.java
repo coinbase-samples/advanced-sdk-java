@@ -16,9 +16,7 @@
 
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-
-public class GetProductRequest implements CoinbaseAdvancedGetRequest {
+public class GetProductRequest {
 
     private final String productId;
 
@@ -28,16 +26,6 @@ public class GetProductRequest implements CoinbaseAdvancedGetRequest {
 
     public String getProductId() {
         return productId;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/products/" + productId;
-    }
-
-    @Override
-    public String getQueryString() {
-        return "";
     }
 
     public static class Builder {

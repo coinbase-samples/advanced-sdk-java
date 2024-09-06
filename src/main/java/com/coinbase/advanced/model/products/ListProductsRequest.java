@@ -16,34 +16,28 @@
 
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
 import com.coinbase.advanced.model.common.PaginationParams;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ListProductsRequest implements CoinbaseAdvancedGetRequest {
+public class ListProductsRequest {
 
     @JsonProperty("product_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String productType;
 
     @JsonProperty("product_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> productIds;
 
     @JsonProperty("contract_expiry_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String contractExpiryType;
 
     @JsonProperty("expiring_contract_status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String expiringContractStatus;
 
-    @JsonProperty("pagination_params")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private PaginationParams paginationParams;
+    private Integer limit;
+
+    private Integer offset;
 
     public ListProductsRequest() {}
 
@@ -52,7 +46,8 @@ public class ListProductsRequest implements CoinbaseAdvancedGetRequest {
         this.productIds = builder.productIds;
         this.contractExpiryType = builder.contractExpiryType;
         this.expiringContractStatus = builder.expiringContractStatus;
-        this.paginationParams = builder.paginationParams;
+        this.limit = builder.limit;
+        this.offset = builder.offset;
     }
 
     public String getProductType() {
@@ -87,48 +82,25 @@ public class ListProductsRequest implements CoinbaseAdvancedGetRequest {
         this.expiringContractStatus = expiringContractStatus;
     }
 
-    public PaginationParams getPaginationParams() {
-        return paginationParams;
+    public Integer getLimit() {
+        return limit;
     }
 
-    public void setPaginationParams(PaginationParams paginationParams) {
-        this.paginationParams = paginationParams;
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 
     @Override
     public String getPath() {
-        return "/brokerage/products";
-    }
-
-    @Override
-    public String getQueryString() {
-        StringBuilder query = new StringBuilder();
-        if (productType != null) {
-            query.append("product_type=").append(productType).append("&");
-        }
-        if (productIds != null && !productIds.isEmpty()) {
-            for (String id : productIds) {
-                query.append("product_ids=").append(id).append("&");
-            }
-        }
-        if (contractExpiryType != null) {
-            query.append("contract_expiry_type=").append(contractExpiryType).append("&");
-        }
-        if (expiringContractStatus != null) {
-            query.append("expiring_contract_status=").append(expiringContractStatus).append("&");
-        }
-        if (paginationParams != null) {
-            if (paginationParams.getCursor() != null) {
-                query.append("cursor=").append(paginationParams.getCursor()).append("&");
-            }
-            if (paginationParams.getLimit() != null) {
-                query.append("limit=").append(paginationParams.getLimit()).append("&");
-            }
-        }
-        if (query.length() > 0) {
-            query.setLength(query.length() - 1);
-        }
-        return query.toString();
+        return ;
     }
 
     public static class Builder {
@@ -136,7 +108,8 @@ public class ListProductsRequest implements CoinbaseAdvancedGetRequest {
         private List<String> productIds;
         private String contractExpiryType;
         private String expiringContractStatus;
-        private PaginationParams paginationParams;
+        private Integer limit;
+        private Integer offset;
 
         public Builder productType(String productType) {
             this.productType = productType;
@@ -158,8 +131,13 @@ public class ListProductsRequest implements CoinbaseAdvancedGetRequest {
             return this;
         }
 
-        public Builder paginationParams(PaginationParams paginationParams) {
-            this.paginationParams = paginationParams;
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        public Builder offset(Integer offset) {
+            this.offset = offset;
             return this;
         }
 

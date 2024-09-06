@@ -504,45 +504,6 @@ public class GetProductResponse {
         private FutureProductDetails futureProductDetails;
         private String displayName;
 
-        public static Builder from(GetProductResponse other) {
-            return new Builder()
-                    .productId(other.productId)
-                    .price(other.price)
-                    .pricePercentageChange24h(other.pricePercentageChange24h)
-                    .volume24h(other.volume24h)
-                    .volumePercentageChange24h(other.volumePercentageChange24h)
-                    .baseIncrement(other.baseIncrement)
-                    .quoteIncrement(other.quoteIncrement)
-                    .quoteMinSize(other.quoteMinSize)
-                    .quoteMaxSize(other.quoteMaxSize)
-                    .baseMinSize(other.baseMinSize)
-                    .baseMaxSize(other.baseMaxSize)
-                    .baseName(other.baseName)
-                    .quoteName(other.quoteName)
-                    .watched(other.watched)
-                    .isDisabled(other.isDisabled)
-                    .isNew(other.isNew)
-                    .status(other.status)
-                    .cancelOnly(other.cancelOnly)
-                    .limitOnly(other.limitOnly)
-                    .postOnly(other.postOnly)
-                    .tradingDisabled(other.tradingDisabled)
-                    .auctionMode(other.auctionMode)
-                    .productType(other.productType)
-                    .quoteCurrencyId(other.quoteCurrencyId)
-                    .baseCurrencyId(other.baseCurrencyId)
-                    .fcmSessionDetails(other.fcmSessionDetails)
-                    .midMarketPrice(other.midMarketPrice)
-                    .alias(other.alias)
-                    .aliasTo(other.aliasTo)
-                    .baseDisplaySymbol(other.baseDisplaySymbol)
-                    .quoteDisplaySymbol(other.quoteDisplaySymbol)
-                    .viewOnly(other.viewOnly)
-                    .priceIncrement(other.priceIncrement)
-                    .futureProductDetails(other.futureProductDetails);
-        }
-
-
         public Builder productId(String productId) {
             this.productId = productId;
             return this;

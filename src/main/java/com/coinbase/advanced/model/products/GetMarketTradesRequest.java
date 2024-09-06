@@ -1,12 +1,13 @@
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetMarketTradesRequest implements CoinbaseAdvancedGetRequest {
+public class GetMarketTradesRequest {
 
     @JsonProperty("product_id")
+    @JsonIgnore
     private String productId;
 
     @JsonProperty("limit")
@@ -59,24 +60,6 @@ public class GetMarketTradesRequest implements CoinbaseAdvancedGetRequest {
 
     public void setEnd(String end) {
         this.end = end;
-    }
-
-    @Override
-    public String getPath() {
-        return String.format("/brokerage/products/%s/ticker", productId);
-    }
-
-    @Override
-    public String getQueryString() {
-        StringBuilder queryParams = new StringBuilder();
-        queryParams.append("limit=").append(limit);
-        if (start != null && !start.isEmpty()) {
-            queryParams.append("&start=").append(start);
-        }
-        if (end != null && !end.isEmpty()) {
-            queryParams.append("&end=").append(end);
-        }
-        return queryParams.toString();
     }
 
     public static class Builder {

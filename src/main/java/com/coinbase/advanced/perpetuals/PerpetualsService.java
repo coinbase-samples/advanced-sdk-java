@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.perpetuals;
 
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.perpetuals.*;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.paymentmethods;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;

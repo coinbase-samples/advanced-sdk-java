@@ -4,8 +4,8 @@ import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
-import com.coinbase.advanced.service.DefaultPortfoliosService;
-import com.coinbase.advanced.service.PortfoliosService;
+import com.coinbase.advanced.portfolios.DefaultPortfoliosService;
+import com.coinbase.advanced.portfolios.PortfoliosService;
 import com.coinbase.advanced.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

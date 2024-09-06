@@ -16,12 +16,13 @@
 
 package com.coinbase.advanced.model.products;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GetProductCandlesRequest implements CoinbaseAdvancedGetRequest {
+public class GetProductCandlesRequest {
 
     @JsonProperty("product_id")
+    @JsonIgnore
     private String productId;
 
     @JsonProperty("start")
@@ -72,21 +73,6 @@ public class GetProductCandlesRequest implements CoinbaseAdvancedGetRequest {
 
     public void setGranularity(String granularity) {
         this.granularity = granularity;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/products/" + productId + "/candles";
-    }
-
-    @Override
-    public String getQueryString() {
-        StringBuilder queryString = new StringBuilder();
-        queryString.append("product_id=").append(productId);
-        queryString.append("&granularity=").append(granularity);
-        queryString.append("&start=").append(start);
-        queryString.append("&end=").append(end);
-        return queryString.toString();
     }
 
     public static class Builder {
