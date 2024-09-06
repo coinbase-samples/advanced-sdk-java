@@ -2,12 +2,10 @@ package com.coinbase.examples;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.credentials.CoinbaseAdvancedCredentials;
-import com.coinbase.advanced.credentials.CoinbaseCredentials;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
 import com.coinbase.advanced.portfolios.PortfoliosServiceImpl;
 import com.coinbase.advanced.portfolios.PortfoliosService;
-import com.coinbase.advanced.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
