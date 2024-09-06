@@ -46,10 +46,6 @@ public class CancelOrdersResponse {
             return this;
         }
 
-        public static Builder from(CancelOrdersResponse resp) {
-            return new Builder().results(resp.getResults());
-        }
-
         public CancelOrdersResponse build() {
             return new CancelOrdersResponse(this);
         }

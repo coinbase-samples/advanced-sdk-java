@@ -45,11 +45,6 @@ public class GetOrderResponse {
             return this;
         }
 
-        public static Builder from(GetOrderResponse resp) {
-            return new Builder()
-                    .order(resp.getOrder());
-        }
-
         public GetOrderResponse build() {
             return new GetOrderResponse(this);
         }

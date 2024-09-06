@@ -101,14 +101,6 @@ public class ListOrdersResponse {
             return this;
         }
 
-        public static Builder from(ListOrdersResponse resp) {
-            return new Builder()
-                    .orders(resp.getOrders())
-                    .sequence(resp.getSequence())
-                    .hasNext(resp.isHasNext())
-                    .cursor(resp.getCursor());
-        }
-
         public ListOrdersResponse build() {
             return new ListOrdersResponse(this);
         }

@@ -16,102 +16,133 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
+import com.coinbase.advanced.model.common.SortBy;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ListFillsRequest implements CoinbaseAdvancedGetRequest {
+import java.util.List;
 
-    private String orderId;
-    private String productId;
+public class ListFillsRequest {
+    @JsonProperty("order_ids")
+    private List<String> orderIds;
+
+    @JsonProperty("product_ids")
+    private List<String> productIds;
+
+    @JsonProperty("trade_ids")
+    private List<String> tradeIds;
+
+    @JsonProperty("start_sequence_timestamp")
     private String startSequenceTimestamp;
+
+    @JsonProperty("end_sequence_timestamp")
     private String endSequenceTimestamp;
+
     private String limit;
+
     private String cursor;
+
+    @JsonProperty("sort_by")
+    private SortBy sortBy;
 
     public ListFillsRequest() {}
 
     private ListFillsRequest(Builder builder) {
-        this.orderId = builder.orderId;
-        this.productId = builder.productId;
+        this.orderIds = builder.orderIds;
+        this.productIds = builder.productIds;
+        this.tradeIds = builder.tradeIds;
         this.startSequenceTimestamp = builder.startSequenceTimestamp;
         this.endSequenceTimestamp = builder.endSequenceTimestamp;
         this.limit = builder.limit;
         this.cursor = builder.cursor;
+        this.sortBy = builder.sortBy;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public List<String> getOrderIds() {
+        return orderIds;
     }
 
-    public String getProductId() {
-        return productId;
+    public void setOrderIds(List<String> orderIds) {
+        this.orderIds = orderIds;
+    }
+
+    public List<String> getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(List<String> productIds) {
+        this.productIds = productIds;
+    }
+
+    public List<String> getTradeIds() {
+        return tradeIds;
+    }
+
+    public void setTradeIds(List<String> tradeIds) {
+        this.tradeIds = tradeIds;
     }
 
     public String getStartSequenceTimestamp() {
         return startSequenceTimestamp;
     }
 
+    public void setStartSequenceTimestamp(String startSequenceTimestamp) {
+        this.startSequenceTimestamp = startSequenceTimestamp;
+    }
+
     public String getEndSequenceTimestamp() {
         return endSequenceTimestamp;
+    }
+
+    public void setEndSequenceTimestamp(String endSequenceTimestamp) {
+        this.endSequenceTimestamp = endSequenceTimestamp;
     }
 
     public String getLimit() {
         return limit;
     }
 
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
     public String getCursor() {
         return cursor;
     }
 
-    @Override
-    public String getPath() {
-        return "/brokerage/orders/historical/fills";
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
     }
 
-    @Override
-    public String getQueryString() {
-        StringBuilder queryString = new StringBuilder();
+    public SortBy getSortBy() {
+        return sortBy;
+    }
 
-        if (orderId != null && !orderId.isEmpty()) {
-            queryString.append("order_id=").append(orderId).append("&");
-        }
-        if (productId != null && !productId.isEmpty()) {
-            queryString.append("product_id=").append(productId).append("&");
-        }
-        if (startSequenceTimestamp != null && !startSequenceTimestamp.isEmpty()) {
-            queryString.append("start_sequence_timestamp=").append(startSequenceTimestamp).append("&");
-        }
-        if (endSequenceTimestamp != null && !endSequenceTimestamp.isEmpty()) {
-            queryString.append("end_sequence_timestamp=").append(endSequenceTimestamp).append("&");
-        }
-        if (limit != null && !limit.isEmpty()) {
-            queryString.append("limit=").append(limit).append("&");
-        }
-        if (cursor != null && !cursor.isEmpty()) {
-            queryString.append("cursor=").append(cursor).append("&");
-        }
-
-        if (queryString.length() > 0 && queryString.charAt(queryString.length() - 1) == '&') {
-            queryString.deleteCharAt(queryString.length() - 1);
-        }
-
-        return queryString.toString();
+    public void setSortBy(SortBy sortBy) {
+        this.sortBy = sortBy;
     }
 
     public static class Builder {
-        private String orderId;
-        private String productId;
+        private List<String> orderIds;
+        private List<String> productIds;
+        private List<String> tradeIds;
         private String startSequenceTimestamp;
         private String endSequenceTimestamp;
         private String limit;
         private String cursor;
+        private SortBy sortBy;
 
-        public Builder orderId(String orderId) {
-            this.orderId = orderId;
+        public Builder orderId(List<String> orderIds) {
+            this.orderIds = orderIds;
             return this;
         }
 
-        public Builder productId(String productId) {
-            this.productId = productId;
+        public Builder productIds(List<String> productIds) {
+            this.productIds = productIds;
+            return this;
+        }
+
+        public Builder tradeIds(List<String> tradeIds) {
+            this.tradeIds = tradeIds;
             return this;
         }
 
@@ -132,6 +163,11 @@ public class ListFillsRequest implements CoinbaseAdvancedGetRequest {
 
         public Builder cursor(String cursor) {
             this.cursor = cursor;
+            return this;
+        }
+
+        public Builder sortBy(SortBy sortBy) {
+            this.sortBy = sortBy;
             return this;
         }
 

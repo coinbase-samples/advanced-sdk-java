@@ -64,12 +64,6 @@ public class EditOrderResponse {
             return this;
         }
 
-        public static Builder from(EditOrderResponse resp) {
-            return new Builder()
-                    .success(resp.isSuccess())
-                    .editErrors(resp.getEditErrors());
-        }
-
         public EditOrderResponse build() {
             return new EditOrderResponse(this);
         }

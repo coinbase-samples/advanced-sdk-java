@@ -111,16 +111,6 @@ public class CreateOrderResponse {
             return this;
         }
 
-        public static Builder from(CreateOrderResponse resp) {
-            return new Builder()
-                    .success(resp.isSuccess())
-                    .failureReason(resp.getFailureReason())
-                    .orderId(resp.getOrderId())
-                    .successResponse(resp.getSuccessResponse())
-                    .errorResponse(resp.getErrorResponse())
-                    .orderConfiguration(resp.getOrderConfiguration());
-        }
-
         public CreateOrderResponse build() {
             return new CreateOrderResponse(this);
         }

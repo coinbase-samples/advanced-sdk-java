@@ -309,30 +309,6 @@ public class CreateOrderPreviewResponse {
             return this;
         }
 
-        public static Builder from(CreateOrderPreviewResponse resp) {
-            return new Builder()
-                    .orderTotal(resp.getOrderTotal())
-                    .commissionTotal(resp.getCommissionTotal())
-                    .errs(resp.getErrs())
-                    .warning(resp.getWarning())
-                    .quoteSize(resp.getQuoteSize())
-                    .baseSize(resp.getBaseSize())
-                    .bestBid(resp.getBestBid())
-                    .bestAsk(resp.getBestAsk())
-                    .isMax(resp.isMax())
-                    .orderMarginTotal(resp.getOrderMarginTotal())
-                    .leverage(resp.getLeverage())
-                    .longLeverage(resp.getLongLeverage())
-                    .shortLeverage(resp.getShortLeverage())
-                    .slippage(resp.getSlippage())
-                    .averageFilledPrice(resp.getAverageFilledPrice())
-                    .previewId(resp.getPreviewId())
-                    .currentLiquidationBuffer(resp.getCurrentLiquidationBuffer())
-                    .projectedLiquidationBuffer(resp.getProjectedLiquidationBuffer())
-                    .maxLeverage(resp.getMaxLeverage())
-                    .pnlConfiguration(resp.getPnlConfiguration());
-        }
-
         public CreateOrderPreviewResponse build() {
             return new CreateOrderPreviewResponse(this);
         }

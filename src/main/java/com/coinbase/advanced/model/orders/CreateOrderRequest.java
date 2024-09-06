@@ -16,14 +16,12 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedPostRequest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateOrderRequest implements CoinbaseAdvancedPostRequest {
+public class CreateOrderRequest {
 
     @JsonProperty("product_id")
     private String productId;
@@ -56,21 +54,6 @@ public class CreateOrderRequest implements CoinbaseAdvancedPostRequest {
         this.leverage = builder.leverage;
         this.marginType = builder.marginType;
         this.retailPortfolioId = builder.retailPortfolioId;
-    }
-
-    @Override
-    public String getPath() {
-        return "/brokerage/orders";
-    }
-
-    @Override
-    public String getBody() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(new NonRecursiveRequest(this));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize CreateOrderRequest", e);
-        }
     }
 
     public static class NonRecursiveRequest {

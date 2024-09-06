@@ -16,10 +16,7 @@
 
 package com.coinbase.advanced.model.orders;
 
-import com.coinbase.advanced.http.CoinbaseAdvancedGetRequest;
-
-public class GetOrderRequest implements CoinbaseAdvancedGetRequest {
-
+public class GetOrderRequest {
     private String orderId;
 
     public GetOrderRequest() {}
@@ -38,7 +35,7 @@ public class GetOrderRequest implements CoinbaseAdvancedGetRequest {
 
     @Override
     public String getPath() {
-        return "/brokerage/orders/historical/" + orderId;
+        return ;
     }
 
     @Override

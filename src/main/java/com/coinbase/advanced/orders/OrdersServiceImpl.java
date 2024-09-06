@@ -14,70 +14,84 @@
  * limitations under the License.
  */
 
-package com.coinbase.advanced.service;
+package com.coinbase.advanced.orders;
 
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.errors.CoinbaseAdvancedException;
 import com.coinbase.advanced.model.orders.*;
+import com.coinbase.core.common.HttpMethod;
+import com.coinbase.core.service.CoinbaseServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-public class DefaultOrdersService implements OrdersService {
+import java.util.List;
 
-    private final CoinbaseAdvancedClient httpClient;
-
-    public DefaultOrdersService(CoinbaseAdvancedClient httpClient) {
-        this.httpClient = httpClient;
+public class OrdersServiceImpl extends CoinbaseServiceImpl implements OrdersService {
+    public OrdersServiceImpl(CoinbaseAdvancedClient client) {
+        super(client);
     }
 
     @Override
     public ListOrdersResponse listOrders(ListOrdersRequest request) throws CoinbaseAdvancedException {
-        ListOrdersResponse resp = httpClient.doGet(request, ListOrdersResponse.class);
-        return ListOrdersResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.GET,
+                "/brokerage/orders/historical/batch",
+                request,
+                List.of(200),
+                new TypeReference<ListOrdersResponse>() {});
     }
 
     @Override
     public GetOrderResponse getOrder(GetOrderRequest request) throws CoinbaseAdvancedException {
-        GetOrderResponse resp = httpClient.doGet(request, GetOrderResponse.class);
-        return GetOrderResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.GET,
+                String.format("/brokerage/orders/historical/%s", request.getOrderId()),
+                null,
+                List.of(200),
+                new TypeReference<GetOrderResponse>() {});
     }
 
     @Override
     public ListFillsResponse listFills(ListFillsRequest request) throws CoinbaseAdvancedException {
-        ListFillsResponse resp = httpClient.doGet(request, ListFillsResponse.class);
-        return ListFillsResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.GET,
+                "/brokerage/orders/historical/fills",
+                request,
+                List.of(200),
+                new TypeReference<ListFillsResponse>() {});
     }
 
     @Override
     public CreateOrderPreviewResponse createOrderPreview(CreateOrderPreviewRequest request) throws CoinbaseAdvancedException {
-        CreateOrderPreviewResponse resp = httpClient.doPost(request, CreateOrderPreviewResponse.class);
-        return CreateOrderPreviewResponse.Builder.from(resp)
-                .build();
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders/preview",
+                request,
+                List.of(200),
+                new TypeReference<CreateOrderPreviewResponse>() {});
     }
 
     @Override
     public CreateOrderResponse createOrder(CreateOrderRequest request) throws CoinbaseAdvancedException {
-        CreateOrderResponse resp = httpClient.doPost(request, CreateOrderResponse.class);
-        return CreateOrderResponse.Builder.from(resp).build();
+        return this.request(
+                HttpMethod.POST,
+                "/brokerage/orders",
+                request,
+                List.of(200),
+                new TypeReference<CreateOrderResponse>() {});
     }
 
     @Override
     public CancelOrdersResponse cancelOrders(CancelOrdersRequest request) throws CoinbaseAdvancedException {
         CancelOrdersResponse resp = httpClient.doPost(request, CancelOrdersResponse.class);
-        return CancelOrdersResponse.Builder.from(resp).build();
     }
 
     @Override
     public EditOrderResponse editOrder(EditOrderRequest request) throws CoinbaseAdvancedException {
         EditOrderResponse resp = httpClient.doPost(request, EditOrderResponse.class);
-        return EditOrderResponse.Builder.from(resp)
-                .build();
     }
 
     @Override
     public PreviewEditOrderResponse previewEditOrder(PreviewEditOrderRequest request) throws CoinbaseAdvancedException {
         PreviewEditOrderResponse resp = httpClient.doPost(request, PreviewEditOrderResponse.class);
-        return PreviewEditOrderResponse.Builder.from(resp).build();
     }
 }

@@ -228,22 +228,6 @@ public class PreviewEditOrderResponse {
             return this;
         }
 
-        public static Builder from(PreviewEditOrderResponse resp) {
-            return new Builder()
-                    .editErrors(resp.getEditErrors())
-                    .slippage(resp.getSlippage())
-                    .orderTotal(resp.getOrderTotal())
-                    .commissionTotal(resp.getCommissionTotal())
-                    .quoteSize(resp.getQuoteSize())
-                    .baseSize(resp.getBaseSize())
-                    .bestBid(resp.getBestBid())
-                    .bestAsk(resp.getBestAsk())
-                    .leverage(resp.getLeverage())
-                    .longLeverage(resp.getLongLeverage())
-                    .shortLeverage(resp.getShortLeverage())
-                    .request(resp.getRequest());
-        }
-
         public PreviewEditOrderResponse build() {
             return new PreviewEditOrderResponse(this);
         }

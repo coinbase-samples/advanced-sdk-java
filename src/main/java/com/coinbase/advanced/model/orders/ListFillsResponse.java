@@ -64,12 +64,6 @@ public class ListFillsResponse {
             return this;
         }
 
-        public static Builder from(ListFillsResponse resp) {
-            return new Builder()
-                    .fills(resp.getFills())
-                    .cursor(resp.getCursor());
-        }
-
         public ListFillsResponse build() {
             return new ListFillsResponse(this);
         }
