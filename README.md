@@ -14,7 +14,7 @@ The application and code are only available for demonstration purposes.
 ## Usage
 
 To use the *Advanced Java SDK*, initialize the Credentials class and create a new client. The Credentials struct is JSON
-enabled. See an example of this inside of the [main.java.com.coinbase.examples package](https://github.com/coinbase-samples/advanced-sdk-java/blob/main/src/main/java/com/coinbase/examples/Main.java). Ensure that Advanced API credentials are stored in a secure manner.
+enabled. See an example of this inside of the [main.java.com.coinbase.examples package](./src/main/java/com/coinbase/examples/Main.java). Ensure that Advanced API credentials are stored in a secure manner.
 
 The JSON format expected for `Advanced_CREDENTIALS` is:
 
