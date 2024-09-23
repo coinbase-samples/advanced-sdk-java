@@ -5,6 +5,8 @@
 The *Advanced Java SDK* is a sample library that demonstrates the structure of a [Coinbase Advanced Trade](https://advanced.coinbase.com/) driver for
 the [REST APIs](https://docs.cdp.coinbase.com/advanced-trade/reference).
 
+Coinbase Advanced Trade offers a comprehensive API for traders, providing access to real-time market data, order management, and execution. Elevate your trading strategies and develop sophisticated solutions using our powerful tools and features.
+
 ## License
 
 The *Advanced Java SDK* sample library is free and open source and released under the [Apache License, Version 2.0](LICENSE).
