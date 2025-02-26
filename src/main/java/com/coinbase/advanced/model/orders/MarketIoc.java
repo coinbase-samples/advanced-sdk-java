@@ -25,6 +25,12 @@ public class MarketIoc {
     @JsonProperty("base_size")
     private String baseSize;
 
+    @JsonProperty("rfq_enabled")
+    private boolean rfqEnabled;
+
+    @JsonProperty("rfq_disabled")
+    private boolean rfqDisabled;
+
     public String getQuoteSize() {
         return quoteSize;
     }
@@ -33,9 +39,19 @@ public class MarketIoc {
         return baseSize;
     }
 
+    public boolean isRfqEnabled() {
+        return rfqEnabled;
+    }
+
+    public boolean isRfqDisabled() {
+        return rfqDisabled;
+    }
+
     public static class Builder {
         private String quoteSize;
         private String baseSize;
+        private boolean rfqEnabled;
+        private boolean rfqDisabled;
 
         public Builder quoteSize(String quoteSize) {
             this.quoteSize = quoteSize;
@@ -47,10 +63,22 @@ public class MarketIoc {
             return this;
         }
 
+        public Builder rfqEnabled(boolean rfqEnabled) {
+            this.rfqEnabled = rfqEnabled;
+            return this;
+        }
+
+        public Builder rfqDisabled(boolean rfqDisabled) {
+            this.rfqDisabled = rfqDisabled;
+            return this;
+        }
+
         public MarketIoc build() {
             MarketIoc marketIoc = new MarketIoc();
             marketIoc.quoteSize = this.quoteSize;
             marketIoc.baseSize = this.baseSize;
+            marketIoc.rfqEnabled = this.rfqEnabled;
+            marketIoc.rfqDisabled = this.rfqDisabled;
             return marketIoc;
         }
     }
