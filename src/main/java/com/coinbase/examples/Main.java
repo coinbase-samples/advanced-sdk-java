@@ -7,9 +7,6 @@ import com.coinbase.advanced.model.portfolios.ListPortfoliosRequest;
 import com.coinbase.advanced.model.portfolios.ListPortfoliosResponse;
 import com.coinbase.advanced.portfolios.PortfoliosService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.coinbase.advanced.dataapi.DataApiService;
-import com.coinbase.advanced.model.dataapi.GetApiKeyPermissionsRequest;
-import com.coinbase.advanced.model.dataapi.GetApiKeyPermissionsResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,18 +30,8 @@ public class Main {
             System.out.println("List Portfolios Response:");
             System.out.println(prettyJson);
 
-
-            DataApiService dataApiService = CoinbaseAdvancedServiceFactory.createDataApiService(client);
-
-            GetApiKeyPermissionsRequest getApiKeyPermissionsRequest = new GetApiKeyPermissionsRequest();
-            GetApiKeyPermissionsResponse getApiKeyPermissionsResponse = dataApiService.getApiKeyPermissions(getApiKeyPermissionsRequest);
-
-            prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(getApiKeyPermissionsResponse);
-            System.out.println("Get API Key Permissions Response:");
-            System.out.println(prettyJson);
-
         } catch (Throwable e) {
-            throw new RuntimeException("Failed to retrieve API key permissions", e);
+            throw new RuntimeException("Failed to list portfolios", e);
         }
     }
 }
