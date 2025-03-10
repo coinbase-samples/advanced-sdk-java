@@ -19,8 +19,8 @@
   <artifactId>coinbase-advanced-sdk-java</artifactId>
   <groupId>com.coinbase.advanced</groupId>
   <name>Coinbase Advanced Trade Java SDK</name>
-  <description>Sample Java SDK for the Coinbase International Exchange REST APIs</description>
-  <version>0.1.0</version>
+  <description>Sample Java SDK for the Coinbase Advanced REST APIs</description>
+  <version>0.2.0</version>
   <url>https://github.com/coinbase-samples/advanced-sdk-java</url>
   <licenses>
     <license>
@@ -48,7 +48,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.11</java.version>
     <jackson.version>2.16.1</jackson.version>
-    <core.version>0.1.0</core.version>
+    <core.version>1.0.1</core.version>
   </properties>
   <build>
     <plugins>

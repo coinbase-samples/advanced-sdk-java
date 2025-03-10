@@ -165,9 +165,13 @@ public class Order {
         this.outstandingHoldAmount = builder.outstandingHoldAmount;
         this.isLiquidation = builder.isLiquidation;
         this.lastFillTime = builder.lastFillTime;
+        this.fee = builder.fee;
+        this.marginType = builder.marginType;   
+        this.retailPortfolioId = builder.retailPortfolioId;
         this.attachedOrderId = builder.attachedOrderId;
         this.editHistory = builder.editHistory;
         this.originatingOrderId = builder.originatingOrderId;
+        this.leverage = builder.leverage;
     }
 
     public String getOrderId() {

@@ -37,7 +37,7 @@ public class SpotPosition {
     private boolean isCash;
 
     @JsonProperty("average_entry_price")
-    private String averageEntryPrice;
+    private Amount averageEntryPrice;
 
     @JsonProperty("asset_uuid")
     private String assetUuid;
@@ -46,8 +46,20 @@ public class SpotPosition {
     private float availableToTradeCrypto;
 
     @JsonProperty("unrealized_pnl")
-    private UnrealizedPnl unrealizedPnl;
+    private double unrealizedPnl;
+    
+    @JsonProperty("available_to_transfer_fiat")
+    private double availableToTransferFiat; 
 
+    @JsonProperty("available_to_transfer_crypto")
+    private double availableToTransferCrypto;
+
+    @JsonProperty("asset_color")
+    private String assetColor;
+
+    @JsonProperty("account_type")
+    private String accountType;
+    
     public String getAsset() {
         return asset;
     }
@@ -128,11 +140,11 @@ public class SpotPosition {
         isCash = cash;
     }
 
-    public String getAverageEntryPrice() {
+    public Amount getAverageEntryPrice() {
         return averageEntryPrice;
     }
 
-    public void setAverageEntryPrice(String averageEntryPrice) {
+    public void setAverageEntryPrice(Amount averageEntryPrice) {
         this.averageEntryPrice = averageEntryPrice;
     }
 
@@ -152,11 +164,44 @@ public class SpotPosition {
         this.availableToTradeCrypto = availableToTradeCrypto;
     }
 
-    public UnrealizedPnl getUnrealizedPnl() {
+    public double getUnrealizedPnl() {
         return unrealizedPnl;
     }
 
-    public void setUnrealizedPnl(UnrealizedPnl unrealizedPnl) {
+    public void setUnrealizedPnl(double unrealizedPnl) {
         this.unrealizedPnl = unrealizedPnl;
     }
+
+    public double getAvailableToTransferFiat() {
+        return availableToTransferFiat;
+    }
+
+    public void setAvailableToTransferFiat(double availableToTransferFiat) {
+        this.availableToTransferFiat = availableToTransferFiat;
+    }
+
+    public double getAvailableToTransferCrypto() {
+        return availableToTransferCrypto;
+    }
+
+    public void setAvailableToTransferCrypto(double availableToTransferCrypto) {
+        this.availableToTransferCrypto = availableToTransferCrypto;
+    }
+
+    public String getAssetColor() {
+        return assetColor;
+    }
+
+    public void setAssetColor(String assetColor) {
+        this.assetColor = assetColor;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }  
+    
 }

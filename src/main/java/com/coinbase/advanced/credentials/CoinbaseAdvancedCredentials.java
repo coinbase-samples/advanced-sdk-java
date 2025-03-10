@@ -102,36 +102,36 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
         data.put("sub", apiKeyName);
         data.put("uri", uri);
 
-        PEMParser pemParser = new PEMParser(new StringReader(privateKey));
-        JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
-        Object object = pemParser.readObject();
-        PrivateKey privateKey;
+        try (PEMParser pemParser = new PEMParser(new StringReader(privateKey))) {
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+            Object object = pemParser.readObject();
+            PrivateKey privateKey;
 
-        if (object instanceof PrivateKey) {
-            privateKey = (PrivateKey) object;
-        } else if (object instanceof org.bouncycastle.openssl.PEMKeyPair) {
-            privateKey = converter.getPrivateKey(((org.bouncycastle.openssl.PEMKeyPair) object).getPrivateKeyInfo());
-        } else {
-            throw new Exception("Unexpected private key format");
+            if (object instanceof PrivateKey) {
+                privateKey = (PrivateKey) object;
+            } else if (object instanceof org.bouncycastle.openssl.PEMKeyPair) {
+                privateKey = converter.getPrivateKey(((org.bouncycastle.openssl.PEMKeyPair) object).getPrivateKeyInfo());
+            } else {
+                throw new Exception("Unexpected private key format");
+            }
+
+            KeyFactory keyFactory = KeyFactory.getInstance("EC");
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
+            ECPrivateKey ecPrivateKey = (ECPrivateKey) keyFactory.generatePrivate(keySpec);
+
+            JWTClaimsSet.Builder claimsSetBuilder = new JWTClaimsSet.Builder();
+            for (Map.Entry<String, Object> entry : data.entrySet()) {
+                claimsSetBuilder.claim(entry.getKey(), entry.getValue());
+            }
+            JWTClaimsSet claimsSet = claimsSetBuilder.build();
+
+            JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.ES256).customParams(header).build();
+            SignedJWT signedJWT = new SignedJWT(jwsHeader, claimsSet);
+
+            JWSSigner signer = new ECDSASigner(ecPrivateKey);
+            signedJWT.sign(signer);
+
+            return signedJWT.serialize();
         }
-        pemParser.close();
-
-        KeyFactory keyFactory = KeyFactory.getInstance("EC");
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
-        ECPrivateKey ecPrivateKey = (ECPrivateKey) keyFactory.generatePrivate(keySpec);
-
-        JWTClaimsSet.Builder claimsSetBuilder = new JWTClaimsSet.Builder();
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            claimsSetBuilder.claim(entry.getKey(), entry.getValue());
-        }
-        JWTClaimsSet claimsSet = claimsSetBuilder.build();
-
-        JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.ES256).customParams(header).build();
-        SignedJWT signedJWT = new SignedJWT(jwsHeader, claimsSet);
-
-        JWSSigner signer = new ECDSASigner(ecPrivateKey);
-        signedJWT.sign(signer);
-
-        return signedJWT.serialize();
     }
 }

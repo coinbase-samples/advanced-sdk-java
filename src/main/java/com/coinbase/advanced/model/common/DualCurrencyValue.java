@@ -16,7 +16,6 @@
 
 package com.coinbase.advanced.model.common;
 
-import com.coinbase.advanced.model.common.Amount;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DualCurrencyValue {

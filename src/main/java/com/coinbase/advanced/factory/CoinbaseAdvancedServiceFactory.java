@@ -5,6 +5,8 @@ import com.coinbase.advanced.accounts.AccountsServiceImpl;
 import com.coinbase.advanced.client.CoinbaseAdvancedClient;
 import com.coinbase.advanced.converts.ConvertsService;
 import com.coinbase.advanced.converts.ConvertsServiceImpl;
+import com.coinbase.advanced.dataapi.DataApiService;
+import com.coinbase.advanced.dataapi.DataApiServiceImpl;
 import com.coinbase.advanced.fees.FeesService;
 import com.coinbase.advanced.fees.FeesServiceImpl;
 import com.coinbase.advanced.futures.FuturesService;
@@ -61,5 +63,9 @@ public class CoinbaseAdvancedServiceFactory {
 
     public static PublicService createPublicService(CoinbaseAdvancedClient client) {
         return new PublicServiceImpl(client);
+    }
+
+    public static DataApiService createDataApiService(CoinbaseAdvancedClient client) {
+        return new DataApiServiceImpl(client);
     }
 }

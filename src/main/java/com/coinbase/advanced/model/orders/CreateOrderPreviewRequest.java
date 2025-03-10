@@ -18,8 +18,6 @@ package com.coinbase.advanced.model.orders;
 
 import com.coinbase.advanced.model.common.Rate;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class CreateOrderPreviewRequest {
     @JsonProperty("product_id")

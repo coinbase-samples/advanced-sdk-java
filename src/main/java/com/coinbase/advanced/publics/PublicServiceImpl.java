@@ -43,7 +43,6 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
 
     @Override
     public ListProductsResponse listPublicProducts(ListPublicProductsRequest request) throws CoinbaseAdvancedException {
-        String path = "/market/products";
         return this.request(
                 HttpMethod.GET,
                 "/market/products",
@@ -54,7 +53,6 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
 
     @Override
     public GetProductBookResponse getPublicProductBook(GetPublicProductBookRequest request) throws CoinbaseAdvancedException {
-        String path = "/market/product_book";
         return this.request(
                 HttpMethod.GET,
                 "/market/product_book",
