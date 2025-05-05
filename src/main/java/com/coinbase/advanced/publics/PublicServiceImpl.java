@@ -35,7 +35,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public GetProductResponse getPublicProduct(GetPublicProductRequest request) throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                String.format("/market/products/%s", request.getProductId()),
+                String.format("/brokerage/market/products/%s", request.getProductId()),
                 null,
                 List.of(200),
                 new TypeReference<GetProductResponse>() {});
@@ -45,7 +45,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public ListProductsResponse listPublicProducts(ListPublicProductsRequest request) throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                "/market/products",
+                "/brokerage/market/products",
                 request,
                 List.of(200),
                 new TypeReference<ListProductsResponse>() {});
@@ -55,7 +55,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public GetProductBookResponse getPublicProductBook(GetPublicProductBookRequest request) throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                "/market/product_book",
+                "/brokerage/market/product_book",
                 request,
                 List.of(200),
                 new TypeReference<GetProductBookResponse>() {});
@@ -65,7 +65,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public GetProductCandlesResponse getPublicProductCandles(GetPublicProductCandlesRequest request) throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                String.format("/market/products/%s/candles", request.getProductId()),
+                String.format("/brokerage/market/products/%s/candles", request.getProductId()),
                 request,
                 List.of(200),
                 new TypeReference<GetProductCandlesResponse>() {});
@@ -75,7 +75,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public GetMarketTradesResponse getPublicMarketTrades(GetPublicMarketTradesRequest request) throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                String.format("/market/products/%s/ticker", request.getProductId()),
+                String.format("/brokerage/market/products/%s/ticker", request.getProductId()),
                 request,
                 List.of(200),
                 new TypeReference<GetMarketTradesResponse>() {});
@@ -85,7 +85,7 @@ public class PublicServiceImpl extends CoinbaseServiceImpl implements PublicServ
     public GetServerTimeResponse getServerTime() throws CoinbaseAdvancedException {
         return this.request(
                 HttpMethod.GET,
-                "/time",
+                "/brokerage/time",
                 null,
                 List.of(200),
                 new TypeReference<GetServerTimeResponse>() {});
