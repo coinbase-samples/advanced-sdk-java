@@ -20,7 +20,7 @@
   <groupId>com.coinbase.advanced</groupId>
   <name>Coinbase Advanced Trade Java SDK</name>
   <description>Sample Java SDK for the Coinbase Advanced REST APIs</description>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
   <url>https://github.com/coinbase-samples/advanced-sdk-java</url>
   <licenses>
     <license>
