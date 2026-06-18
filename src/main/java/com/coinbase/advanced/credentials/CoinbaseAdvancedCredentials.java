@@ -51,7 +51,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
     @JsonProperty(required = true)
@@ -103,9 +102,6 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
 
         PrivateKey key = loadPrivateKey(privateKey);
         JWSAlgorithm algorithm = algorithmFor(key);
-        if (JWSAlgorithm.ES256.equals(algorithm)) {
-            warnEcdsaDeprecation();
-        }
 
         String uri = requestMethod + " " + host + path;
         long now = Instant.now().getEpochSecond();
@@ -129,8 +125,6 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
 
         return signedJWT.serialize();
     }
-
-    private static final AtomicBoolean ecdsaDeprecationWarned = new AtomicBoolean(false);
 
     /**
      * Loads a CDP API key secret into a {@link PrivateKey}. Two key types are
@@ -197,13 +191,6 @@ public class CoinbaseAdvancedCredentials implements CoinbaseCredentials {
         }
         throw new IllegalArgumentException(
                 "Unsupported private key type: " + alg + ". Expected ECDSA (P-256) or Ed25519.");
-    }
-
-    private static void warnEcdsaDeprecation() {
-        if (ecdsaDeprecationWarned.compareAndSet(false, true)) {
-            System.err.println("warning: Ed25519 is the recommended CDP API key type. "
-                    + "Consider switching to an Ed25519 key at https://portal.cdp.coinbase.com/");
-        }
     }
 
     private static JWSSigner signerFor(JWSAlgorithm algorithm, PrivateKey key) throws JOSEException {
